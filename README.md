@@ -1,1 +1,1 @@
-#jso-frontend test stressssssss
+#jso-frontend parcialmente
