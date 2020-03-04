@@ -1,1 +1,1 @@
-#jso-frontend parcialmente
+#jso-frontend parcialmente 2
