@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git push
+git pull
 
 docker build -t "jso-frontend" ./
 
