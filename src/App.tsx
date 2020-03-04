@@ -12,9 +12,9 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello from aws.
-        </p>
+        <h3>
+          Deu certo Princesa!
+        </h3>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -23,6 +23,7 @@ const App: React.FC = () => {
         >
           New React
         </a>
+        
       </header>
     </div>
   );
