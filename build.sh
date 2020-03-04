@@ -1,5 +1,7 @@
 #!/bin/bash
 
-sudo docker build -t "jso-frontend" ./
+git push
 
-sudo docker run -it -p 3000:3000 jso-frontend
+docker build -t "jso-frontend" ./
+
+docker run -it -p 3000:3000 jso-frontend
