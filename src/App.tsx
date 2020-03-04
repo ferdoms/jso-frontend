@@ -13,7 +13,7 @@ const App: React.FC = () => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h3>
-          Deu certo Princesa!
+          Deu certo na real, real!
         </h3>
         <a
           className="App-link"
@@ -23,7 +23,7 @@ const App: React.FC = () => {
         >
           New React
         </a>
-        
+
       </header>
     </div>
   );
