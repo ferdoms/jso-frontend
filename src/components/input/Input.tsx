@@ -52,6 +52,7 @@ export class Input extends React.Component<Props, State> {
 
     if (onBlur) onBlur(e);
   }
+  
   updateInputValue(e: any) {
     this.props.onChange(e);
     this.activateField();
