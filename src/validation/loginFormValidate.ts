@@ -10,9 +10,6 @@ export default function loginFormValidate(data: any) {
         .label("Email"),
       password: Joi
         .string()
-        // .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
-        // .min(8)
-        // .max(12)
         .required()
         .label("Password")
     })

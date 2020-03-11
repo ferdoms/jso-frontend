@@ -44,8 +44,6 @@ export class LoginForm extends React.Component<Props, State> {
   }
 
   render() {
-    
-
     return (
       <div className="w-100 tc pa3 ">
         <h2 className="f2">Login</h2>
@@ -65,10 +63,9 @@ export class LoginForm extends React.Component<Props, State> {
             onChange={this._handleChange}
           />
         </div>
-        <ErrorMsg text={this.state.err}/>
+        <ErrorMsg text={this.state.err} />
         <Btn label="Login" type="SECONDARY" onClick={this._handleLogin} />
       </div>
     );
   }
 }
-  

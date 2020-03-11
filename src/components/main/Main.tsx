@@ -1,13 +1,14 @@
 import React from "react";
-import Section from "../section/Section";
-import { LoginForm } from "../login-form/LoginForm";
+// import { LoginPage } from "../../pages/login-page/LoginPage";
+import { SignupPage } from "../../pages/signup-page/SignupPage";
 
+/**
+ * Page content wrapper
+ */
 export const Main: React.FC = () => {
   return (
-    <Section className="pv6" >
-      <div className="center bg-white" style={{ maxWidth: "24rem"}}>
-        <LoginForm />
-      </div>
-    </Section>
+    <div>
+      <SignupPage/>
+    </div>
   );
 };
