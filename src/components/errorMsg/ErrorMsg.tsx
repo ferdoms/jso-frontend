@@ -10,7 +10,7 @@ class ErrorMsg extends React.Component<Props, {}> {
     return text ?
       (
       <p
-        className="f6 dark-red mt0"
+        className="f6 dark-red mv0"
       >
         {text}
       </p>

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import "./label.css";
+import ErrorMsg from "../errorMsg/ErrorMsg";
 
 interface Props {
   id: string;
@@ -8,6 +9,7 @@ interface Props {
   value: string | number | string[] | undefined;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event?: React.FocusEvent<HTMLInputElement>) => void;
+  errComponent?: ReactNode;
 }
 interface State {
   inputValue: string;
@@ -48,7 +50,7 @@ export class Input extends React.Component<Props, State> {
 
     const { onBlur } = this.props;
 
-    if (onBlur) onBlur(e)
+    if (onBlur) onBlur(e);
   }
   updateInputValue(e: any) {
     this.props.onChange(e);
@@ -57,7 +59,7 @@ export class Input extends React.Component<Props, State> {
   }
 
   render() {
-    const { inputLabel, type, id, value } = this.props;
+    const { inputLabel, type, id, value, errComponent } = this.props;
     return (
       <div className="dib relative ma2">
         <label
@@ -79,6 +81,7 @@ export class Input extends React.Component<Props, State> {
           onBlur={this._handleBlur}
           onChange={this.updateInputValue}
         />
+        {errComponent ? errComponent : ""}
       </div>
     );
   }
