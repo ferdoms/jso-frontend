@@ -8,7 +8,12 @@ import { ResetPassPage } from "../../pages/resetpass-page/ResetPassPage";
 import { ResetPassForm } from "../resetpass-form/ResetPassForm";
 
 interface Props {
-  onSubmit?: () => void;
+  userData: {
+    fname: string;
+    lname: string;
+    email: string;
+  };
+  onSubmit?: ({}:any) => void;
 }
 
 interface State {
@@ -22,9 +27,9 @@ export class ProfileForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      fname: "Fernando",
-      lname: "Marinho",
-      email: "marinhosilva.fernando@gmail.com",
+      fname: props.userData.fname,
+      lname: props.userData.lname,
+      email: props.userData.email,
       err: undefined
     };
     this._handleChange = this._handleChange.bind(this);
@@ -45,17 +50,20 @@ export class ProfileForm extends React.Component<Props, State> {
       lname,
       email,
     });
-    console.log(result);
 
-    if (!!result.error) this.setState({ err: result.error.message });
+    if (!!result.error) {
+      this.setState({ err: result.error.message })
+    }else{
+      if (onSubmit) onSubmit({fname, lname, email});
+    }
 
-    if (onSubmit) onSubmit();
+    
   }
 
   render() {
     return (
-      <div className="w-100 pa3 ">
-        <h3 className="f3 pa2">Edit Profile</h3>
+      <div className="w-100 pv3 ">
+        {/* <h3 className="f3 pa2">Edit Profile</h3> */}
         <div className="flex flex-column">
           <Input
             id="fname"

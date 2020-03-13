@@ -63,7 +63,7 @@ export class Input extends React.Component<Props, State> {
   render() {
     const { inputLabel, type, id, value, errComponent, disabled } = this.props;
     return (
-      <div className="dib relative ma2">
+      <div className="dib relative mv2">
         <label
           // check state the input, whether it is active then apply the class for floating label
           className={this.state.fieldActivate ? "field-active" : ""}

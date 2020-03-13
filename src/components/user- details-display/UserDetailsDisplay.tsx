@@ -1,7 +1,11 @@
 import React from "react";
 
 interface Props {
-  display: {};
+  display: {
+    fname: string;
+    lname: string;
+    email: String;
+  };
 }
 
 export class UserDetailsDisplay extends React.Component<Props, {}> {
@@ -11,28 +15,26 @@ export class UserDetailsDisplay extends React.Component<Props, {}> {
   render() {
     const { display } = this.props;
 
-    
+    let rowClass = "pv1 pr3";
+    let rowHeaderClass = rowClass + " black b";
 
-    
-    let trs = Object.keys(display).map(function(key) {
-      // Using Number() to convert key to number type
-      // Using obj[key] to retrieve key value
-      return (
-        <tr>
-          <td className="pv3 pr3 bb b--black-20">{key}</td>
-          {/* <td className="pv3 pr3 bb b--black-20">{display[`${key}`]}</td> */}
-        </tr>
-      );
-    });
-    for (let [key, value] of Object.entries(display)) {
-      console.log(`${key}: ${value}`);
-    }
-    return <div className="overflow-auto">
-    <table className="f6 w-100 mw8 center" cellSpacing="0">
-      <tbody className="lh-copy">
-        {trs}
-      </tbody>
-    </table>
-  </div>;
+    return (
+      <table className="f6 w-100 mw8 center mb3" cellSpacing="0">
+        <tbody className="lh-copy mid-gray ">
+          <tr>
+            <td className={rowHeaderClass}>First Name</td>
+            <td className={rowClass}>{display.fname}</td>
+          </tr>
+          <tr>
+            <td className={rowHeaderClass}>Last Name</td>
+            <td className={rowClass}>{display.lname}</td>
+          </tr>
+          <tr>
+            <td className={rowHeaderClass}>Email </td>
+            <td className={rowClass}>{display.email}</td>
+          </tr>
+        </tbody>
+      </table>
+    );
   }
 }
