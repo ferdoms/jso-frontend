@@ -1,5 +1,5 @@
 import React from "react";
-import { ProfilePage } from "../../pages/profile-page/ProfilePage";
+import { DashboardPage } from "../../pages/dashboard-page/DashboardPage";
 
 /**
  * Page content wrapper
@@ -7,7 +7,7 @@ import { ProfilePage } from "../../pages/profile-page/ProfilePage";
 export const Main: React.FC = () => {
   return (
     <div>
-      <ProfilePage/>
+      <DashboardPage/>
     </div>
   );
 };

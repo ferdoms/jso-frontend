@@ -1,0 +1,8 @@
+/* Soulution from: http://hackingui.com/front-end/a-pure-css-solution-for-multiline-text-truncation/ */
+
+.block-with-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;  
+}
