@@ -10,7 +10,6 @@ export const ProfilePage: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   // ***** VERIFY THE POSSIBILITY TO MAKE userDetail A STATE OR UPDATE THROUGH A API CALL
-
   let userDetails = {
     fname: "Fernando",
     lname: "Marinho",
