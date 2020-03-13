@@ -2,8 +2,10 @@ import React from "react";
 
 import Btn from "../button/Button";
 import { Input } from "../input/Input";
-import signupFormValidate from "../../validation/signupFormValidate";
+import profileFormValidate from "../../validation/profileFormValidate";
 import ErrorMsg from "../errorMsg/ErrorMsg";
+import { ResetPassPage } from "../../pages/resetpass-page/ResetPassPage";
+import { ResetPassForm } from "../resetpass-form/ResetPassForm";
 
 interface Props {
   onSubmit?: () => void;
@@ -13,8 +15,6 @@ interface State {
   fname: string;
   lname: string;
   email: string;
-  password: string;
-  confirm_pass: string;
   err: string | undefined;
 }
 
@@ -25,8 +25,6 @@ export class ProfileForm extends React.Component<Props, State> {
       fname: "Fernando",
       lname: "Marinho",
       email: "marinhosilva.fernando@gmail.com",
-      password: "",
-      confirm_pass: "",
       err: undefined
     };
     this._handleChange = this._handleChange.bind(this);
@@ -40,14 +38,12 @@ export class ProfileForm extends React.Component<Props, State> {
   }
   private _handleSubmit() {
     const { onSubmit } = this.props;
-    const { fname, lname, email, password, confirm_pass } = this.state;
+    const { fname, lname, email } = this.state;
 
-    let result = signupFormValidate({
+    let result = profileFormValidate({
       fname,
       lname,
       email,
-      password,
-      confirm_pass
     });
     console.log(result);
 
@@ -58,8 +54,8 @@ export class ProfileForm extends React.Component<Props, State> {
 
   render() {
     return (
-      <div className="w-100 tc pa3 ">
-        <h2 className="f2">Sign up</h2>
+      <div className="w-100 pa3 ">
+        <h3 className="f3 pa2">Edit Profile</h3>
         <div className="flex flex-column">
           <Input
             id="fname"
@@ -82,23 +78,9 @@ export class ProfileForm extends React.Component<Props, State> {
             value={this.state.email}
             onChange={this._handleChange}
           />
-          <Input
-            id="password"
-            inputLabel="Password"
-            type="password"
-            value={this.state.password}
-            onChange={this._handleChange}
-          />
-          <Input
-            id="confirm_pass"
-            inputLabel="Confirm Password"
-            type="password"
-            value={this.state.confirm_pass}
-            onChange={this._handleChange}
-          />
         </div>
         <ErrorMsg text={this.state.err} />
-        <Btn label="Sign up" type="SECONDARY" onClick={this._handleSubmit} />
+        <Btn label="Save" type="SECONDARY" onClick={this._handleSubmit} />
       </div>
     );
   }

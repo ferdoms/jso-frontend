@@ -10,6 +10,7 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event?: React.FocusEvent<HTMLInputElement>) => void;
   errComponent?: ReactNode;
+  disabled?: boolean;
 }
 interface State {
   inputValue: string;
@@ -22,7 +23,7 @@ export class Input extends React.Component<Props, State> {
     super(props);
     this.state = {
       inputValue: "",
-      fieldActivate: false,
+      fieldActivate: props.value === "" ? false : true,
       inputRef: React.createRef()
     };
 
@@ -52,7 +53,7 @@ export class Input extends React.Component<Props, State> {
 
     if (onBlur) onBlur(e);
   }
-  
+
   updateInputValue(e: any) {
     this.props.onChange(e);
     this.activateField();
@@ -60,7 +61,7 @@ export class Input extends React.Component<Props, State> {
   }
 
   render() {
-    const { inputLabel, type, id, value, errComponent } = this.props;
+    const { inputLabel, type, id, value, errComponent, disabled } = this.props;
     return (
       <div className="dib relative ma2">
         <label
@@ -81,6 +82,7 @@ export class Input extends React.Component<Props, State> {
           onFocus={this.activateField}
           onBlur={this._handleBlur}
           onChange={this.updateInputValue}
+          disabled={disabled}
         />
         {errComponent ? errComponent : ""}
       </div>
