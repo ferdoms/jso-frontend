@@ -12,7 +12,7 @@ class Section extends React.Component<Props, {}> {
     return (
       <div
         className={
-          "mw-5 mw8-ns center pa3 ph5-ns " + (className ? className : "")
+          "mw-5 mw8-ns center pa3 ph2-ns " + (className ? className : "")
         }
         style={style}
       >
