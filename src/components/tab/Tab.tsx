@@ -1,8 +1,7 @@
 import React from "react";
 
 interface Props {
-
-  
+  onChange?: (status:string)=>void;
 }
 
 interface State {
@@ -40,8 +39,11 @@ class Tab extends React.Component<Props, State> {
     });
   }
   private _handleClick(e:any){
-
+    const { onChange } = this.props;
     this.setState({activeTabId:(e.target.id)})
+
+    if(onChange) onChange(tabs[e.target.id]);
+    
 
   }
   render() {

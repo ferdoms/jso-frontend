@@ -1,55 +1,43 @@
 import React from "react";
 import Tab from "../tab/Tab";
-import listJobAppl from "../list/ListJobAppl";
+import ListJobAppl from "../list/ListJobAppl";
 import { jobApplList } from "../../pages/dashboard-page/mockData";
 
 interface Props {
 
-  jobApplList: any[]
+  jobApplList: any []
 }
 
 interface State {
-  activeTabId: number;
+  activeTab: string;
 }
 
 class JobApplBoard extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      activeTabId: 0
+      activeTab: "Active",
     };
-    this._handleClick = this._handleClick.bind(this)
+    this._handleTabChange = this._handleTabChange.bind(this)
   }
 
-  private _renderTab(tabs: string[]) {
-    return tabs.map((item, index) => {
-      return (
-        <a
-          className={
-            "fl w-20 tc f4 pv3 " +
-            // Conditional style for highlighting active tab
-            (this.state.activeTabId != index ? "bb b--black-20" : " br bl bt b--black-20")
-          }
-          onClick={this._handleClick}
-          id={index.toString()}
-          key={index}
-        >
-          {item}
-        </a>
-      );
-    });
-  }
-  private _handleClick(e:any){
-
-    this.setState({activeTabId:(e.target.id)})
-
+  private _handleTabChange(activeTab:string){
+    this.setState({activeTab})
   }
   render() {
-    
+    const { jobApplList } = this.props;
+    const { activeTab } = this.state;
+
+    let jobsFiltered = this.props.jobApplList.filter((job:any)=>job.status === this.state.activeTab)
+
 
     return <div>
-      <Tab/>
-      {/* <listJobAppl jobs={jobApplList}/> */}
+      <Tab onChange={this._handleTabChange}/>
+
+      <div className="flex flex-wrap">
+        <ListJobAppl jobApplList={activeTab==="All" ? jobApplList : jobsFiltered}/>
+      </div>
+      
       
     
     </div>;

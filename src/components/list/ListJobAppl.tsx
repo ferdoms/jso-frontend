@@ -1,13 +1,15 @@
 import React from "react";
 import JobCard from "../job-card/JobCard";
 
-const listJobAppl = (props:any) => {
+interface Props {
+  jobApplList: any[];
+}
 
-
-  // const cardArray = props.jobs.map(({statusDate, jobUrl, ...rest}, i) => {
-  //   return <JobCard jobAppl={rest}  />;
-  // });
-  // return <div>{cardArray}</div>;
-};
-
-export default listJobAppl;
+class ListJobAppl extends React.Component<Props, {}> {
+  render() {
+    return this.props.jobApplList.map(({ statusDate, jobUrl, ...job }: any) => {
+      return <JobCard jobAppl={job} />;
+    });
+  }
+}
+export default ListJobAppl;
