@@ -5,6 +5,18 @@
     background-color: purple;
 }
 .bg-danger{
-    background-color: red;
+    background-color: #E7040F;
 }
+
+.primary{
+    color: aqua;
+}
+.secondary{
+    color: purple;
+}
+.danger{
+    color: #E7040F;
+}
+
+
 
