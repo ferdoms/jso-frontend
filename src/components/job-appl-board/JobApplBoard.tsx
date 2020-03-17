@@ -3,6 +3,8 @@ import Tab from "../tab/Tab";
 import ListJobAppl from "../list/ListJobAppl";
 import { jobApplList } from "../../pages/dashboard-page/mockData";
 import { Input } from "../input/Input";
+import Button from "../button/Button";
+import { Combobox } from "../combobox/combobox";
 
 interface Props {
   jobApplList: any[];
@@ -11,6 +13,7 @@ interface Props {
 interface State {
   activeTab: string;
   searchFilter: string;
+  comboFilter:string;
 }
 
 class JobApplBoard extends React.Component<Props, State> {
@@ -18,10 +21,12 @@ class JobApplBoard extends React.Component<Props, State> {
     super(props);
     this.state = {
       activeTab: "Active",
-      searchFilter: ""
+      searchFilter: "",
+      comboFilter:"statusDate"
     };
     this._handleTabChange = this._handleTabChange.bind(this);
     this._handleSearchChange = this._handleSearchChange.bind(this);
+    this._handleComboChange = this._handleComboChange.bind(this);
   }
 
   private _handleTabChange(activeTab: string) {
@@ -32,19 +37,24 @@ class JobApplBoard extends React.Component<Props, State> {
     state[e.target.id] = e.target.value;
     this.setState(state);
   }
+  private _handleComboChange(value: any) {
+    let state: any = this.state;
+    state.comboFilter = value;
+    this.setState(state);
+  }
   render() {
     const { jobApplList } = this.props;
-    const { activeTab, searchFilter } = this.state;
+    const { activeTab, searchFilter, comboFilter } = this.state;
 
     let jobsFiltered;
-    
-    if(activeTab === "All") {
-      jobsFiltered = jobApplList
-    }else {
+
+    if (activeTab === "All") {
+      jobsFiltered = jobApplList;
+    } else {
       jobsFiltered = this.props.jobApplList.filter(
-        (job: any) => job.status === activeTab 
+        (job: any) => job.status === activeTab
       );
-    } 
+    }
 
     if (searchFilter !== "")
       jobsFiltered = jobsFiltered.filter(
@@ -54,20 +64,32 @@ class JobApplBoard extends React.Component<Props, State> {
           job.jobTitle.includes(searchFilter)
       );
 
+     jobsFiltered.sort((a, b) => (a[comboFilter] > b[comboFilter]) ? 1 : -1)
     return (
       <div>
         <Tab onChange={this._handleTabChange} />
-        <Input
-          id="searchFilter"
-          inputLabel="Search"
-          onChange={this._handleSearchChange}
-          type="string"
-          value={searchFilter}
-        />
+
+        <div className="flex flex-column flex-row-ns items-center mt3">
+          <div className="flex flex-column ph2 w-100-ns">
+            
+            <Input
+              id="searchFilter"
+              inputLabel="Search"
+              onChange={this._handleSearchChange}
+              type="text"
+              value={searchFilter}
+            />
+          </div>
+          <div className="ph2">
+            <Combobox options={["Status Date", "Company Name", "Job Title"]} id="comboFilter" value={comboFilter} onChange={this._handleComboChange}/>
+          </div>
+          <div className="ph2">
+            <Button label="+" onClick={() => {}} type="GRAY" solid circle />
+          </div>
+        </div>
+
         <div className="flex flex-wrap">
-          <ListJobAppl
-            jobApplList={jobsFiltered}
-          />
+          <ListJobAppl jobApplList={jobsFiltered} />
         </div>
       </div>
     );
