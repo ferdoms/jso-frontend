@@ -29,8 +29,13 @@ class JobApplBoard extends React.Component<Props, State> {
     this._handleComboChange = this._handleComboChange.bind(this);
   }
 
+  /**
+   * Handle actions to be taken when a tab is selected
+   * @param {string} activeTab Tab that is active 
+   */
   private _handleTabChange(activeTab: string) {
-    this.setState({ activeTab });
+    // set active tab and set default values
+    this.setState({ activeTab, searchFilter:""});
   }
   private _handleSearchChange(e: any) {
     let state: any = this.state;
