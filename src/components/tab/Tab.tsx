@@ -25,7 +25,7 @@ class Tab extends React.Component<Props, State> {
       return (
         <a
           className={
-            "fl w-20 tc f5 f4-ns pv3 " +
+            "fl w-20 tc f5 f4-ns pv3 ph2 truncate " +
             // Conditional style for highlighting active tab
             (this.state.activeTabId != index ? "bb b--black-20" : " br bl bt b--black-20")
           }

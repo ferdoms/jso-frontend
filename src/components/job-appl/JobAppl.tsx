@@ -2,10 +2,12 @@ import React, { CSSProperties } from "react";
 import { Transition } from "react-transition-group";
 import Button from "../button/Button";
 
-interface Props {}
+interface Props {
+  isAdding: boolean;
+  onClose: () => void;
+}
 
 interface State {
-  isAdding: boolean;
 }
 
 const timeout: any = {
@@ -27,7 +29,6 @@ class JobAppl extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      isAdding: false
     };
     this._handleSearchChange = this._handleSearchChange.bind(this);
   }
@@ -39,7 +40,7 @@ class JobAppl extends React.Component<Props, State> {
   }
 
   render() {
-    const { isAdding } = this.state;
+    const { isAdding, onClose } = this.props;
     return (
       <div
         id="shadow"
@@ -48,11 +49,8 @@ class JobAppl extends React.Component<Props, State> {
         <Button
           solid
           type="DANGER"
-          label="test"
-          onClick={() => {
-            console.log(!isAdding);
-            this.setState({ isAdding: !isAdding });
-          }}
+          label="Close"
+          onClick={onClose}
         />
 
         <Transition in={isAdding} timeout={timeout}>
