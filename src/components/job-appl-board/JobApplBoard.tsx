@@ -4,10 +4,13 @@ import ListJobAppl from "../list-job-appl/ListJobAppl";
 import { Input } from "../input/Input";
 import Button from "../button/Button";
 import { Combobox } from "../combobox/combobox";
+import { JobApplication } from "../../interfaces/JobApplicationInterface";
+import { FadeIn } from "../animations/fade-in";
 
 interface Props {
   jobApplList: any[];
   onAddJobClick: () => void;
+  onEditJobClick: (jobAppl:JobApplication) => void;
 }
 
 interface State {
@@ -27,6 +30,9 @@ class JobApplBoard extends React.Component<Props, State> {
     this._handleTabChange = this._handleTabChange.bind(this);
     this._handleSearchChange = this._handleSearchChange.bind(this);
     this._handleComboChange = this._handleComboChange.bind(this);
+    this._handleSelectJobCard = this._handleSelectJobCard.bind(this);
+
+    
   }
 
   /**
@@ -46,6 +52,13 @@ class JobApplBoard extends React.Component<Props, State> {
     let state: any = this.state;
     state.comboFilter = value;
     this.setState(state);
+  }
+  private _handleSelectJobCard(id: number) {
+    const { jobApplList, onEditJobClick} = this.props;
+    // filter selected job application
+    let selected:JobApplication = jobApplList.filter(item => item.id === id)[0]
+    // sends it back to parent object
+    onEditJobClick(selected);
   }
   render() {
     const { jobApplList, onAddJobClick } = this.props;
@@ -104,10 +117,12 @@ class JobApplBoard extends React.Component<Props, State> {
             />
           </div>
         </div>
-
+        {/* <FadeIn in={true}> */}
         <div className="flex flex-wrap">
-          <ListJobAppl jobApplList={jobsFiltered} />
+          <ListJobAppl jobApplList={jobsFiltered} onSelect={this._handleSelectJobCard} />
         </div>
+        {/* </FadeIn> */}
+        
       </div>
     );
   }

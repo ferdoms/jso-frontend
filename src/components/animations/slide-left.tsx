@@ -4,21 +4,21 @@ import { Transition } from "react-transition-group";
 const duration: any = {
   appear: 200,
   enter: 80,
-  exit: 100
+  exit: 1000
 };
 
 const defaultStyle: CSSProperties = {
-  transition: `transform 900ms`,
+  transition: `transform 1000ms`,
   position: "fixed",
   top: 0,
-  right:0,
-  width:"100%",
+  right: 0,
+  width: "100%",
   height: "100%"
 };
 const transitionStyles: any = {
   entering: { transform: "translate( -100% ,0)" },
   entered: {},
-  exiting: {},
+  exiting: {transform: "translate( 100%, 0)"},
   exited: { transform: "translate( 100%, 0)" }
 };
 interface Props {
@@ -31,7 +31,7 @@ export const SlideLeft: SFC<Props> = props => (
     in={props.in}
     timeout={duration}
     mountOnEnter
-    // unmountOnExit
+    unmountOnExit
     onEnter={node => node.offsetHeight}
   >
     {state => (

@@ -8,6 +8,7 @@ import { JobApplicationLog } from "../../interfaces/JobApplicationLog";
 import { DocumentInterface } from "../../interfaces/DocumentInterface";
 import ListLogs from "../list-logs/ListLogs";
 import ListDocs from "../list-docs/ListDocs";
+import { TextArea } from "../text-area/TextArea";
 
 interface Props {
   jobApplication: JobApplication;
@@ -50,7 +51,6 @@ export class EditJobForm extends React.Component<Props, State> {
       jobApplicationLog,
       err: undefined
     };
-    console.log(props.jobApplication);
     this._handleChange = this._handleChange.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
   }
@@ -89,9 +89,9 @@ export class EditJobForm extends React.Component<Props, State> {
     } = this.state;
     return (
       <div className="pv3">
-        <h3 className="f3 pa2">Edit Profile</h3>
+        <h3 className="f3 pa2">Job Application</h3>
         <div className="flex flex-wrap justify-center">
-          <div className="flex flex-column w-75-l pr3-l mb4">
+          <div className="flex flex-column w-100 w-75-l pr3-l mb4">
             <div className="flex flex-column w-50-ns">
               <Input
                 id="companyName"
@@ -110,7 +110,7 @@ export class EditJobForm extends React.Component<Props, State> {
             </div>
 
             {/* SPACE FOR TEXTAREA */}
-            <div className="ba b--light-gray">{jobDescription}</div>
+            <TextArea inputLabel="Job Description" id="jobDescription" value={jobDescription} onChange={this._handleChange} />
 
             {/* SPACE FOR TEXTAREA */}
             <Input
@@ -133,28 +133,24 @@ export class EditJobForm extends React.Component<Props, State> {
             <Btn label="Save" type="SECONDARY" onClick={this._handleSubmit} />
 
             <div className="mv2">
-              <h5 className="mv3 gray">
-                Logs
-              </h5>
+              <h5 className="mv3 gray">Logs</h5>
               <div className="h4 overflow-scroll overflow-x-hidden">
                 <ListLogs
                   logsList={jobApplicationLog}
                   companyName={companyName}
                 />
               </div>
-              
             </div>
             <div className="mv2">
-              <h5 className="mv3 gray">
-                Docs
-              </h5>
+              <h5 className="mv3 gray">Docs</h5>
               <div className="">
                 <ListDocs
                   docsList={documentsList}
-                  onClick={(item)=>{console.log(item.name)}}
+                  onClick={(item:any) => {
+                    console.log(item.name);
+                  }}
                 />
               </div>
-              
             </div>
           </div>
         </div>

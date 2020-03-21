@@ -3,12 +3,18 @@ import JobCard from "../job-card/JobCard";
 
 interface Props {
   jobApplList: any[];
+  onSelect: (id:number)=>void;
 }
 
 class ListJobAppl extends React.Component<Props, {}> {
+  
   render() {
-    return this.props.jobApplList.map(({ statusDate, jobUrl, ...job }: any, index:number) => {
-      return <JobCard jobAppl={job} key={index}/>;
+    const { jobApplList, onSelect } = this.props;
+
+    // return a list of job cards
+    return jobApplList.map(({ statusDate, jobUrl, ...job }: any, index:number) => {
+      return <JobCard jobAppl={job} key={index} onClick={()=>{
+        onSelect(job.id)}}/>;
     });
   }
 }
