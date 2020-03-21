@@ -1,4 +1,4 @@
-export interface Document {
+export interface DocumentInterface {
   name: string;
   extension: string;
 }

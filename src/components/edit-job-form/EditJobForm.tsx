@@ -5,7 +5,9 @@ import profileFormValidate from "../../validation/profileFormValidate";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 import { JobApplication } from "../../interfaces/JobApplicationInterface";
 import { JobApplicationLog } from "../../interfaces/JobApplicationLog";
-import { Document } from "../../interfaces/DocumentInterface";
+import { DocumentInterface } from "../../interfaces/DocumentInterface";
+import ListLogs from "../list-logs/ListLogs";
+import ListDocs from "../list-docs/ListDocs";
 
 interface Props {
   jobApplication: JobApplication;
@@ -19,7 +21,7 @@ interface State {
   status: string;
   statusDate: string;
   jobUrl: string;
-  documentsList: Document[];
+  documentsList: DocumentInterface[];
   jobApplicationLog: JobApplicationLog[];
   err: string | undefined;
 }
@@ -90,20 +92,22 @@ export class EditJobForm extends React.Component<Props, State> {
         <h3 className="f3 pa2">Edit Profile</h3>
         <div className="flex flex-wrap justify-center">
           <div className="flex flex-column w-75-l pr3-l mb4">
-            <Input
-              id="companyName"
-              inputLabel="Company Name"
-              type="text"
-              value={companyName}
-              onChange={this._handleChange}
-            />
-            <Input
-              id="jobTitle"
-              inputLabel="Job Title"
-              type="text"
-              value={jobTitle}
-              onChange={this._handleChange}
-            />
+            <div className="flex flex-column w-50-ns">
+              <Input
+                id="companyName"
+                inputLabel="Company Name"
+                type="text"
+                value={companyName}
+                onChange={this._handleChange}
+              />
+              <Input
+                id="jobTitle"
+                inputLabel="Job Title"
+                type="text"
+                value={jobTitle}
+                onChange={this._handleChange}
+              />
+            </div>
 
             {/* SPACE FOR TEXTAREA */}
             <div className="ba b--light-gray">{jobDescription}</div>
@@ -118,17 +122,40 @@ export class EditJobForm extends React.Component<Props, State> {
             />
             <ErrorMsg text={this.state.err} />
             <div className="dib">
-            <Btn label="Save" type="SECONDARY" onClick={this._handleSubmit} />
-          
-
+              <Btn label="Save" type="SECONDARY" onClick={this._handleSubmit} />
             </div>
-            </div>
+          </div>
 
           <div className="flex flex-column w-75 w-25-l">
             <Btn label="Save" type="SECONDARY" onClick={this._handleSubmit} />
             <Btn label="Save" type="SECONDARY" onClick={this._handleSubmit} />
             <Btn label="Save" type="SECONDARY" onClick={this._handleSubmit} />
             <Btn label="Save" type="SECONDARY" onClick={this._handleSubmit} />
+
+            <div className="mv2">
+              <h5 className="mv3 gray">
+                Logs
+              </h5>
+              <div className="h4 overflow-scroll overflow-x-hidden">
+                <ListLogs
+                  logsList={jobApplicationLog}
+                  companyName={companyName}
+                />
+              </div>
+              
+            </div>
+            <div className="mv2">
+              <h5 className="mv3 gray">
+                Docs
+              </h5>
+              <div className="">
+                <ListDocs
+                  docsList={documentsList}
+                  onClick={(item)=>{console.log(item.name)}}
+                />
+              </div>
+              
+            </div>
           </div>
         </div>
       </div>

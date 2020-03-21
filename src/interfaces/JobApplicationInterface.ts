@@ -1,4 +1,4 @@
-import { Document } from "./DocumentInterface";
+import { DocumentInterface } from "./DocumentInterface";
 import { JobApplicationLog } from "./JobApplicationLog";
 
 export interface JobApplication {
@@ -9,7 +9,7 @@ export interface JobApplication {
   status: string;
   statusDate: string;
   jobUrl: string;
-  documentsList: Document[];
+  documentsList: DocumentInterface[];
   jobApplicationLog: JobApplicationLog[];
   reminderOn: boolean;
   reminderDate: string;

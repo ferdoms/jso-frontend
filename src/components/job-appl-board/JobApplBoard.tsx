@@ -1,7 +1,6 @@
 import React from "react";
 import Tab from "../tab/Tab";
-import ListJobAppl from "../list/ListJobAppl";
-import { jobApplList } from "../../pages/dashboard-page/mockData";
+import ListJobAppl from "../list-job-appl/ListJobAppl";
 import { Input } from "../input/Input";
 import Button from "../button/Button";
 import { Combobox } from "../combobox/combobox";
