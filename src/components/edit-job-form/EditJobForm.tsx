@@ -12,10 +12,11 @@ import { TextArea } from "../text-area/TextArea";
 
 interface Props {
   jobApplication: JobApplication;
-  onSubmit?: ({}: any) => void;
+  onSubmit?: (jobAppl: JobApplication) => void;
 }
 
 interface State {
+  id: number;
   companyName: string;
   jobDescription: string;
   jobTitle: string;
@@ -31,6 +32,7 @@ export class EditJobForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     const {
+      id,
       companyName,
       jobDescription,
       jobTitle,
@@ -41,6 +43,7 @@ export class EditJobForm extends React.Component<Props, State> {
       jobApplicationLog
     } = this.props.jobApplication;
     this.state = {
+      id,
       companyName,
       jobDescription,
       jobTitle,
@@ -62,6 +65,7 @@ export class EditJobForm extends React.Component<Props, State> {
   }
   private _handleSubmit() {
     const { onSubmit } = this.props;
+    const { err, ...job } = this.state;
 
     // let result = profileFormValidate({
     //   fname,
@@ -72,7 +76,7 @@ export class EditJobForm extends React.Component<Props, State> {
     // if (!!result.error) {
     //   this.setState({ err: result.error.message });
     // } else {
-    //   if (onSubmit) onSubmit({ fname, lname, email });
+    if (onSubmit) onSubmit(job as JobApplication);
     // }
   }
 
@@ -110,7 +114,12 @@ export class EditJobForm extends React.Component<Props, State> {
             </div>
 
             {/* SPACE FOR TEXTAREA */}
-            <TextArea inputLabel="Job Description" id="jobDescription" value={jobDescription} onChange={this._handleChange} />
+            <TextArea
+              inputLabel="Job Description"
+              id="jobDescription"
+              value={jobDescription}
+              onChange={this._handleChange}
+            />
 
             {/* SPACE FOR TEXTAREA */}
             <Input
@@ -146,7 +155,7 @@ export class EditJobForm extends React.Component<Props, State> {
               <div className="">
                 <ListDocs
                   docsList={documentsList}
-                  onClick={(item:any) => {
+                  onClick={(item: any) => {
                     console.log(item.name);
                   }}
                 />
