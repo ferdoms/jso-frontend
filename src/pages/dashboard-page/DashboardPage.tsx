@@ -7,6 +7,7 @@ import { SlideLeft } from "../../components/animations/slide-left";
 import { EditJobForm } from "../../components/edit-job-form/EditJobForm";
 import { JobApplication } from "../../interfaces/JobApplicationInterface";
 import ErrorMsg from "../../components/errorMsg/ErrorMsg";
+import { AddJobForm } from "../../components/add-job-form/AddJobForm";
 
 interface State {
   isAdding: boolean;
@@ -15,26 +16,28 @@ interface State {
   jobApplToEdit: JobApplication | null;
 }
 
+
 export class DashboardPage extends React.Component<{}, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isAdding: false,
+      isAdding: true,
       isEditing: false,
       jobApplToEdit: null,
       jobAppls: []
     };
-    this._submit = this._submit.bind(this);
+    this._submitAddJA = this._submitAddJA.bind(this);
+    this._submitEditJA = this._submitEditJA.bind(this);
     this._onAdd = this._onAdd.bind(this);
     this._onCloseAdd = this._onCloseAdd.bind(this);
     this._onEdit = this._onEdit.bind(this);
     this._onCloseEdit = this._onCloseEdit.bind(this);
   }
-  componentDidMount(){
-    this.setState({jobAppls:jobApplList});
+  componentDidMount() {
+    this.setState({ jobAppls: jobApplList });
   }
 
-  private _submit = (job: JobApplication) => {
+  private _submitEditJA = (job: JobApplication) => {
     let jaList = this.state.jobAppls;
 
     // find object in the array and update it
@@ -47,6 +50,25 @@ export class DashboardPage extends React.Component<{}, State> {
     // update state
     this.setState({ jobAppls: jaList });
     // request API to save object
+
+    // close form
+    this._onCloseEdit();
+  };
+  private _submitAddJA = (ja: JobApplication) => {
+    let jaList = this.state.jobAppls;
+
+    // request api to create JA
+
+    // update ja id
+
+    // add to the JobAppl array to update view
+    jaList.push(ja);
+
+    // update state
+    this.setState({ jobAppls: jaList });
+
+    // close form
+    this._onCloseAdd();
   };
 
   private _onAdd = () => {
@@ -55,17 +77,17 @@ export class DashboardPage extends React.Component<{}, State> {
   private _onCloseAdd = () => {
     this.setState({ isAdding: false });
   };
-  private _onEdit = (jobAppl: JobApplication) => {
+  private _onEdit(jobAppl: JobApplication) {
     // possibility of a fetch
 
-
-    this.setState({ jobApplToEdit: jobAppl, isEditing: true });
-  };
+    this.setState({ jobApplToEdit: jobAppl });
+    this.setState({ isEditing: true });
+  }
   private _onCloseEdit = () => {
     this.setState({ isEditing: false });
   };
   render() {
-    const {isAdding,isEditing, jobApplToEdit, jobAppls} = this.state;
+    const { isAdding, isEditing, jobApplToEdit, jobAppls } = this.state;
     return (
       <Section className="pv6">
         <JobApplBoard
@@ -87,10 +109,25 @@ export class DashboardPage extends React.Component<{}, State> {
               X
             </a>
             {jobApplToEdit ? (
-              <EditJobForm jobApplication={jobApplToEdit} onSubmit={this._submit} />
+              <EditJobForm
+                jobApplication={jobApplToEdit}
+                onSubmit={this._submitEditJA}
+              />
             ) : (
               <ErrorMsg text="Some thing went wrong!" />
             )}
+          </div>
+        </SlideLeft>
+        <SlideLeft in={isAdding}>
+          <div className=" ml7-l h-100 bg-white ph2 ph4-ns pr6-l pv4 overflow-y-scroll">
+            <a
+              onClick={() => {
+                this._onCloseAdd();
+              }}
+            >
+              X
+            </a>
+            {<AddJobForm onSubmit={this._submitAddJA} />}
           </div>
         </SlideLeft>
       </Section>

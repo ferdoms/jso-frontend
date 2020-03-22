@@ -1,4 +1,6 @@
-export const jobApplList = [
+import { JobApplication } from "../../interfaces/JobApplicationInterface";
+
+export const jobApplList:JobApplication[] = [
   {
     id: 1,
     companyName: "Dabtype",
@@ -20,7 +22,7 @@ export const jobApplList = [
       {
         actualStatus: "Follow up",
         logDate: "07/01/2020",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Follow up",
@@ -85,7 +87,7 @@ export const jobApplList = [
       {
         actualStatus: "Interview",
         logDate: "20/08/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       }
     ],
     reminderOn: true,
@@ -98,7 +100,7 @@ export const jobApplList = [
     jobDescription:
       "Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.\n\nCras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.\n\nProin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.\n\nAenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.\n\nCurabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.\n\nPhasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.\n\nProin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.\n\nDuis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.\n\nDonec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\n\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",
     jobTitle: "Health Coach III",
-    status: "Archieved",
+    status: "Archived",
     statusDate: "13/08/2019",
     jobUrl:
       "https://boston.com/vel/augue/vestibulum/ante/ipsum/primis/in.jsp?libero=ante&ut=vivamus&massa=tortor&volutpat=duis&convallis=mattis&morbi=egestas&odio=metus&odio=aenean&elementum=fermentum&eu=donec&interdum=ut&eu=mauris&tincidunt=eget&in=massa&leo=tempor&maecenas=convallis&pulvinar=nulla&lobortis=neque&est=libero&phasellus=convallis&sit=eget&amet=eleifend&erat=luctus&nulla=ultricies&tempus=eu&vivamus=nibh&in=quisque&felis=id&eu=justo&sapien=sit&cursus=amet&vestibulum=sapien&proin=dignissim&eu=vestibulum&mi=vestibulum&nulla=ante&ac=ipsum&enim=primis&in=in&tempor=faucibus&turpis=orci&nec=luctus&euismod=et&scelerisque=ultrices&quam=posuere&turpis=cubilia&adipiscing=curae&lorem=nulla&vitae=dapibus&mattis=dolor&nibh=vel&ligula=est&nec=donec&sem=odio&duis=justo&aliquam=sollicitudin&convallis=ut&nunc=suscipit&proin=a&at=feugiat&turpis=et&a=eros&pede=vestibulum&posuere=ac&nonummy=est&integer=lacinia&non=nisi&velit=venenatis&donec=tristique&diam=fusce&neque=congue&vestibulum=diam&eget=id&vulputate=ornare&ut=imperdiet&ultrices=sapien&vel=urna&augue=pretium&vestibulum=nisl&ante=ut&ipsum=volutpat&primis=sapien&in=arcu&faucibus=sed&orci=augue&luctus=aliquam&et=erat&ultrices=volutpat&posuere=in&cubilia=congue&curae=etiam&donec=justo&pharetra=etiam&magna=pretium&vestibulum=iaculis&aliquet=justo",
@@ -123,9 +125,9 @@ export const jobApplList = [
     ],
     jobApplicationLog: [
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "10/02/2020",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Follow up",
@@ -133,7 +135,7 @@ export const jobApplList = [
         previousStatus: "Follow up"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "25/07/2019",
         previousStatus: "Active"
       },
@@ -148,7 +150,7 @@ export const jobApplList = [
         previousStatus: "Active"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "25/05/2019",
         previousStatus: "Active"
       },
@@ -158,9 +160,9 @@ export const jobApplList = [
         previousStatus: "Interview"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "18/08/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Active",
@@ -183,7 +185,7 @@ export const jobApplList = [
     jobDescription:
       "In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.\n\nSuspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.\n\nMaecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.\n\nCurabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.\n\nPraesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl.\n\nDuis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.",
     jobTitle: "Quality Engineer",
-    status: "Archieved",
+    status: "Archived",
     statusDate: "01/03/2020",
     jobUrl:
       "http://quantcast.com/odio/odio/elementum/eu.png?lectus=ipsum&in=primis&est=in&risus=faucibus&auctor=orci&sed=luctus&tristique=et&in=ultrices&tempus=posuere&sit=cubilia&amet=curae&sem=nulla&fusce=dapibus&consequat=dolor&nulla=vel&nisl=est&nunc=donec&nisl=odio&duis=justo&bibendum=sollicitudin&felis=ut&sed=suscipit&interdum=a&venenatis=feugiat&turpis=et",
@@ -210,9 +212,9 @@ export const jobApplList = [
         previousStatus: "Follow up"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "17/08/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Interview",
@@ -222,7 +224,7 @@ export const jobApplList = [
       {
         actualStatus: "Active",
         logDate: "19/04/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Follow up",
@@ -275,19 +277,19 @@ export const jobApplList = [
         previousStatus: "Interview"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "06/10/2019",
         previousStatus: "Follow up"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "25/04/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Follow up",
         logDate: "10/03/2020",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Follow up",
@@ -348,7 +350,7 @@ export const jobApplList = [
         previousStatus: "Interview"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "18/08/2019",
         previousStatus: "Follow up"
       },
@@ -365,7 +367,7 @@ export const jobApplList = [
       {
         actualStatus: "Interview",
         logDate: "23/01/2020",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       }
     ],
     reminderOn: true,
@@ -378,7 +380,7 @@ export const jobApplList = [
     jobDescription:
       "Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.\n\nPraesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.\n\nCras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.\n\nProin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.\n\nAenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.\n\nCurabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.\n\nPhasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.\n\nProin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.\n\nDuis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.",
     jobTitle: "Analog Circuit Design manager",
-    status: "Archieved",
+    status: "Archived",
     statusDate: "26/11/2019",
     jobUrl:
       "http://cdbaby.com/in/quis/justo/maecenas/rhoncus.png?ut=mi&nunc=in&vestibulum=porttitor&ante=pede&ipsum=justo&primis=eu&in=massa&faucibus=donec&orci=dapibus&luctus=duis&et=at&ultrices=velit&posuere=eu&cubilia=est&curae=congue&mauris=elementum&viverra=in&diam=hac&vitae=habitasse&quam=platea&suspendisse=dictumst&potenti=morbi&nullam=vestibulum&porttitor=velit&lacus=id&at=pretium&turpis=iaculis&donec=diam&posuere=erat&metus=fermentum&vitae=justo&ipsum=nec&aliquam=condimentum&non=neque&mauris=sapien&morbi=placerat&non=ante&lectus=nulla&aliquam=justo&sit=aliquam&amet=quis&diam=turpis&in=eget&magna=elit&bibendum=sodales&imperdiet=scelerisque&nullam=mauris&orci=sit&pede=amet&venenatis=eros&non=suspendisse&sodales=accumsan&sed=tortor&tincidunt=quis&eu=turpis&felis=sed&fusce=ante&posuere=vivamus&felis=tortor&sed=duis",
@@ -386,14 +388,14 @@ export const jobApplList = [
     documentsList: [],
     jobApplicationLog: [
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "21/01/2020",
         previousStatus: "Active"
       },
       {
         actualStatus: "Active",
         logDate: "04/06/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Interview",
@@ -408,17 +410,17 @@ export const jobApplList = [
       {
         actualStatus: "Follow up",
         logDate: "20/10/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Interview",
         logDate: "13/06/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Active",
         logDate: "22/01/2020",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Active",
@@ -441,7 +443,7 @@ export const jobApplList = [
     jobDescription:
       "Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.\n\nInteger ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.\n\nNam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.",
     jobTitle: "Professor",
-    status: "Archieved",
+    status: "Archived",
     statusDate: "17/08/2019",
     jobUrl:
       "http://fotki.com/habitasse/platea/dictumst.html?phasellus=turpis&sit=a&amet=pede&erat=posuere&nulla=nonummy&tempus=integer&vivamus=non&in=velit&felis=donec&eu=diam&sapien=neque&cursus=vestibulum&vestibulum=eget&proin=vulputate&eu=ut&mi=ultrices&nulla=vel&ac=augue&enim=vestibulum",
@@ -511,10 +513,10 @@ export const jobApplList = [
       {
         actualStatus: "Active",
         logDate: "30/03/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "22/02/2020",
         previousStatus: "Interview"
       },
@@ -524,19 +526,19 @@ export const jobApplList = [
         previousStatus: "Follow up"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "13/09/2019",
         previousStatus: "Active"
       },
       {
         actualStatus: "Follow up",
         logDate: "27/02/2020",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Interview",
         logDate: "23/11/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       }
     ],
     reminderOn: true,
@@ -585,10 +587,10 @@ export const jobApplList = [
       {
         actualStatus: "Active",
         logDate: "03/12/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "18/11/2019",
         previousStatus: "Follow up"
       },
@@ -603,9 +605,9 @@ export const jobApplList = [
         previousStatus: "Follow up"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "27/06/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Follow up",
@@ -645,7 +647,7 @@ export const jobApplList = [
     ],
     jobApplicationLog: [
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "29/03/2019",
         previousStatus: "Active"
       },
@@ -655,7 +657,7 @@ export const jobApplList = [
         previousStatus: "Interview"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "22/02/2020",
         previousStatus: "Interview"
       },
@@ -761,7 +763,7 @@ export const jobApplList = [
       {
         actualStatus: "Follow up",
         logDate: "22/07/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       }
     ],
     reminderOn: false,
@@ -832,7 +834,7 @@ export const jobApplList = [
         previousStatus: "Interview"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "21/12/2019",
         previousStatus: "Interview"
       },
@@ -844,7 +846,7 @@ export const jobApplList = [
       {
         actualStatus: "Interview",
         logDate: "08/06/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Active",
@@ -859,7 +861,7 @@ export const jobApplList = [
       {
         actualStatus: "Active",
         logDate: "03/07/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       }
     ],
     reminderOn: false,
@@ -887,7 +889,7 @@ export const jobApplList = [
       {
         actualStatus: "Active",
         logDate: "05/02/2020",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       }
     ],
     reminderOn: false,
@@ -929,9 +931,9 @@ export const jobApplList = [
     ],
     jobApplicationLog: [
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "09/11/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Follow up",
@@ -959,7 +961,7 @@ export const jobApplList = [
     jobDescription:
       "Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.\n\nNullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\n\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.\n\nMaecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.\n\nNullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.",
     jobTitle: "VP Quality Control",
-    status: "Archieved",
+    status: "Archived",
     statusDate: "01/10/2019",
     jobUrl:
       "https://businessweek.com/praesent/lectus/vestibulum/quam/sapien/varius/ut.jpg?non=platea&quam=dictumst&nec=aliquam&dui=augue",
@@ -980,7 +982,7 @@ export const jobApplList = [
     ],
     jobApplicationLog: [
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "06/02/2020",
         previousStatus: "Active"
       },
@@ -1010,7 +1012,7 @@ export const jobApplList = [
     jobDescription:
       "Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.\n\nIn sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.\n\nSuspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.\n\nMaecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.\n\nCurabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.",
     jobTitle: "Nurse Practicioner",
-    status: "Archieved",
+    status: "Archived",
     statusDate: "28/11/2019",
     jobUrl:
       "https://oaic.gov.au/ullamcorper/augue/a/suscipit.js?donec=eu&pharetra=tincidunt&magna=in&vestibulum=leo&aliquet=maecenas&ultrices=pulvinar&erat=lobortis&tortor=est&sollicitudin=phasellus&mi=sit&sit=amet&amet=erat&lobortis=nulla&sapien=tempus&sapien=vivamus&non=in&mi=felis&integer=eu&ac=sapien&neque=cursus&duis=vestibulum&bibendum=proin&morbi=eu&non=mi&quam=nulla&nec=ac&dui=enim&luctus=in&rutrum=tempor&nulla=turpis&tellus=nec&in=euismod&sagittis=scelerisque&dui=quam&vel=turpis&nisl=adipiscing&duis=lorem&ac=vitae&nibh=mattis&fusce=nibh&lacus=ligula&purus=nec&aliquet=sem&at=duis&feugiat=aliquam&non=convallis&pretium=nunc&quis=proin&lectus=at&suspendisse=turpis&potenti=a&in=pede&eleifend=posuere&quam=nonummy&a=integer&odio=non&in=velit&hac=donec&habitasse=diam&platea=neque&dictumst=vestibulum&maecenas=eget&ut=vulputate&massa=ut&quis=ultrices&augue=vel",
@@ -1030,7 +1032,7 @@ export const jobApplList = [
       {
         actualStatus: "Follow up",
         logDate: "10/09/2019",
-        previousStatus: "Archieved"
+        previousStatus: "Archived"
       },
       {
         actualStatus: "Follow up",
@@ -1038,7 +1040,7 @@ export const jobApplList = [
         previousStatus: "Follow up"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "12/05/2019",
         previousStatus: "Active"
       },
@@ -1048,7 +1050,7 @@ export const jobApplList = [
         previousStatus: "Active"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "21/08/2019",
         previousStatus: "Active"
       }
@@ -1063,7 +1065,7 @@ export const jobApplList = [
     jobDescription:
       "Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.\n\nAliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.\n\nSed ante. Vivamus tortor. Duis mattis egestas metus.\n\nAenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.\n\nQuisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.\n\nVestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.\n\nIn congue. Etiam justo. Etiam pretium iaculis justo.\n\nIn hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.",
     jobTitle: "Social Worker",
-    status: "Archieved",
+    status: "Archived",
     statusDate: "15/07/2019",
     jobUrl:
       "http://senate.gov/in/hac/habitasse/platea/dictumst/maecenas/ut.json?pede=mollis&venenatis=molestie&non=lorem&sodales=quisque&sed=ut&tincidunt=erat&eu=curabitur&felis=gravida&fusce=nisi&posuere=at&felis=nibh&sed=in&lacus=hac&morbi=habitasse&sem=platea&mauris=dictumst&laoreet=aliquam&ut=augue&rhoncus=quam&aliquet=sollicitudin&pulvinar=vitae&sed=consectetuer&nisl=eget&nunc=rutrum&rhoncus=at&dui=lorem&vel=integer&sem=tincidunt&sed=ante&sagittis=vel&nam=ipsum&congue=praesent&risus=blandit&semper=lacinia&porta=erat",
@@ -1086,7 +1088,7 @@ export const jobApplList = [
         previousStatus: "Follow up"
       },
       {
-        actualStatus: "Archieved",
+        actualStatus: "Archived",
         logDate: "22/11/2019",
         previousStatus: "Interview"
       }

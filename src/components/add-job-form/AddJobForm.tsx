@@ -11,7 +11,6 @@ import ListDocs from "../list-docs/ListDocs";
 import { TextArea } from "../text-area/TextArea";
 
 interface Props {
-  jobApplication: JobApplication;
   onSubmit?: (jobAppl: JobApplication) => void;
 }
 
@@ -20,7 +19,7 @@ interface State {
   companyName: string;
   jobDescription: string;
   jobTitle: string;
-  status: "Active" | "Follow up" | "Interview" | "Archived";
+  status: "Active" | "Follow up" | "Interview" | "Archieved";
   statusDate: string;
   jobUrl: string;
   documentsList: DocumentInterface[];
@@ -28,30 +27,19 @@ interface State {
   err: string | undefined;
 }
 
-export class EditJobForm extends React.Component<Props, State> {
+export class AddJobForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    const {
-      id,
-      companyName,
-      jobDescription,
-      jobTitle,
-      status,
-      statusDate,
-      jobUrl,
-      documentsList,
-      jobApplicationLog
-    } = this.props.jobApplication;
     this.state = {
-      id,
-      companyName,
-      jobDescription,
-      jobTitle,
-      status,
-      statusDate,
-      jobUrl,
-      documentsList,
-      jobApplicationLog,
+      id: 0,
+      companyName: "",
+      jobDescription: "",
+      jobTitle: "",
+      status: "Active",
+      statusDate: "",
+      jobUrl: "",
+      documentsList: [],
+      jobApplicationLog: [],
       err: undefined
     };
     this._handleChange = this._handleChange.bind(this);
@@ -112,16 +100,12 @@ export class EditJobForm extends React.Component<Props, State> {
                 onChange={this._handleChange}
               />
             </div>
-
-            {/* SPACE FOR TEXTAREA */}
             <TextArea
               inputLabel="Job Description"
               id="jobDescription"
               value={jobDescription}
               onChange={this._handleChange}
             />
-
-            {/* SPACE FOR TEXTAREA */}
             <Input
               id="jobUrl"
               inputLabel="Url"
@@ -136,22 +120,8 @@ export class EditJobForm extends React.Component<Props, State> {
           </div>
 
           <div className="flex flex-column w-75 w-25-l">
-            <Btn label="Active" type="SECONDARY" onClick={()=>{this.setState({status: "Active"})}} />
-            <Btn label="Interview" type="SECONDARY" onClick={()=>{this.setState({status:"Interview"})}} />
-            <Btn label="Follow up" type="SECONDARY" onClick={()=>{this.setState({status:"Follow up"})}} />
-            <Btn label="Archived" type="SECONDARY" onClick={()=>{this.setState({status:"Archived"})}} />
-
             <div className="mv2">
-              <h5 className="mv3 gray">Logs</h5>
-              <div className="h4 overflow-scroll overflow-x-hidden">
-                <ListLogs
-                  logsList={jobApplicationLog}
-                  companyName={companyName}
-                />
-              </div>
-            </div>
-            <div className="mv2">
-              <h5 className="mv3 gray">Docs</h5>
+              <h5 className="mv3 gray">Docs list:</h5>
               <div className="">
                 {documentsList.length > 0 ? (
                   <ListDocs

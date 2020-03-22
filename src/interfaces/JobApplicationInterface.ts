@@ -6,7 +6,7 @@ export interface JobApplication {
   companyName: string;
   jobDescription: string;
   jobTitle: string;
-  status: string;
+  status: "Active" | "Follow up" | "Interview" | "Archived";
   statusDate: string;
   jobUrl: string;
   documentsList: DocumentInterface[];
