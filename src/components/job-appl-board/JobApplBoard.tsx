@@ -110,8 +110,10 @@ class JobApplBoard extends React.Component<Props, State> {
           <div className="ph2">
             <Button
               label="+"
+              icon="rating-plus"
               onClick={onAddJobClick}
               type="GRAY"
+              color="white"
               solid
               circle
             />

@@ -21,7 +21,7 @@ export class DashboardPage extends React.Component<{}, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isAdding: true,
+      isAdding: false,
       isEditing: false,
       jobApplToEdit: null,
       jobAppls: []
@@ -96,7 +96,7 @@ export class DashboardPage extends React.Component<{}, State> {
           onEditJobClick={this._onEdit}
         />
 
-        <FadeIn in={isEditing}>
+        <FadeIn in={isEditing || isAdding}>
           <div className="bg-mid-gray fixed h-100 w-100 top-0 left-0"></div>
         </FadeIn>
         <SlideLeft in={isEditing}>

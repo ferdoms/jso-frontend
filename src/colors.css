@@ -1,3 +1,5 @@
+/* theming */
+
 .bg-primary{
     background-color: aqua;
 }
@@ -17,6 +19,36 @@
 .danger{
     color: #E7040F;
 }
+
+
+/* skins */
+
+.bg-active-skin{
+    background-color:  #96ccff;
+}
+.bg-followup-skin{
+    background-color: #a463f2;
+}
+.bg-interview-skin{
+    background-color: #ff725c;
+}
+.bg-archived-skin{
+    background-color: #fbf1a9;
+}
+
+.active-skin{
+    color:  #357EDD;
+}
+.followup-skin{
+    color: #5E2CA5;
+}
+.interview-skin{
+    color: #FF6300;
+}
+.archived-skin{
+    color: #FFB700;
+}
+
 
 
 

@@ -135,11 +135,11 @@ export class EditJobForm extends React.Component<Props, State> {
             </div>
           </div>
 
-          <div className="flex flex-column w-75 w-25-l">
-            <Btn label="Active" type="SECONDARY" onClick={()=>{this.setState({status: "Active"})}} />
-            <Btn label="Interview" type="SECONDARY" onClick={()=>{this.setState({status:"Interview"})}} />
-            <Btn label="Follow up" type="SECONDARY" onClick={()=>{this.setState({status:"Follow up"})}} />
-            <Btn label="Archived" type="SECONDARY" onClick={()=>{this.setState({status:"Archived"})}} />
+          <div className="flex flex-column tc w-75 w-25-l">
+            <Btn solid={!(status==="Active")} label="Active" type="ACTIVE-SKIN" onClick={()=>{this.setState({status: "Active"})}} />
+            <Btn solid={!(status==="Interview")} label="Interview" type="INTERVIEW-SKIN" onClick={()=>{this.setState({status:"Interview"})}} />
+            <Btn solid={!(status==="Follow up")} label="Follow up" type="FOLLOWUP-SKIN" onClick={()=>{this.setState({status:"Follow up"})}} />
+            <Btn solid={!(status==="Archived")} label="Archived"  type="ARCHIVED-SKIN" onClick={()=>{this.setState({status:"Archived"})}} />
 
             <div className="mv2">
               <h5 className="mv3 gray">Logs</h5>
