@@ -30,11 +30,8 @@ class JobApplBoard extends React.Component<Props, State> {
     this._handleTabChange = this._handleTabChange.bind(this);
     this._handleSearchChange = this._handleSearchChange.bind(this);
     this._handleComboChange = this._handleComboChange.bind(this);
-    this._handleSelectJobCard = this._handleSelectJobCard.bind(this);
-
-    
+    this._handleSelectJobCard = this._handleSelectJobCard.bind(this);   
   }
-
   /**
    * Handle actions to be taken when a tab is selected
    * @param {string} activeTab Tab that is active
@@ -119,11 +116,9 @@ class JobApplBoard extends React.Component<Props, State> {
             />
           </div>
         </div>
-        {/* <FadeIn in={true}> */}
         <div className="flex flex-wrap">
           <ListJobAppl jobApplList={jobsFiltered} onSelect={this._handleSelectJobCard} />
         </div>
-        {/* </FadeIn> */}
         
       </div>
     );

@@ -2,7 +2,7 @@ import React from "react";
 
 import Btn from "../button/Button";
 import { Input } from "../input/Input";
-import resetPassFormValidate from "../../validation/resetPassFormValidate";
+import resetPassFormValidate from "../../validations/resetPassFormValidate";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 
 interface Props {

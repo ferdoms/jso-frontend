@@ -5,6 +5,9 @@ interface Props {
   onChange: (e: any) => void;
   label: string;
   icon?: string;
+  multiple?: boolean;
+  accept?: string | undefined;
+  className?: string | undefined;
 }
 interface State {
   filesCount: number;
@@ -28,15 +31,12 @@ export class InputFile extends React.Component<Props, State> {
 
     if (filesCount === 1) this.setState({ fileName: e.target.files[0].name });
 
-    console.log(filesCount);
-
     this.props.onChange(e);
   }
   private _renderLabel() {
     const { filesCount, fileName } = this.state;
     const { label } = this.props;
 
-    console.log(filesCount, fileName);
     if (filesCount > 1) {
       return `${filesCount} file(s) selected`;
     } else if (filesCount === 1) {
@@ -45,7 +45,7 @@ export class InputFile extends React.Component<Props, State> {
     return label;
   }
   render() {
-    const { icon } = this.props;
+    const { icon, className, ...rest } = this.props;
     return (
       <div className="relative">
         <input
@@ -53,12 +53,14 @@ export class InputFile extends React.Component<Props, State> {
           id="uploadDoc"
           name="uploadDoc"
           type="file"
-          //   value={jobUrl}
-          multiple
+          {...rest}
           onChange={this._handleChange}
         />
         <label
-          className="f6 black link dim ph3 pv2 mb2 dib bg-primary"
+          className={
+            "f6 black link dim ph3 pv2 mb2 dib bg-primary w-100 truncate tc " +
+            className
+          }
           htmlFor="uploadDoc"
         >
           {icon ? <i className={icon} /> : <></>}

@@ -2,7 +2,7 @@ import React from "react";
 
 import Btn from "../button/Button";
 import { Input } from "../input/Input";
-import profileFormValidate from "../../validation/profileFormValidate";
+import profileFormValidate from "../../validations/profileFormValidate";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 import { ResetPassPage } from "../../pages/resetpass-page/ResetPassPage";
 import { ResetPassForm } from "../resetpass-form/ResetPassForm";

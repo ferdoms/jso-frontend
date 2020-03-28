@@ -1,7 +1,7 @@
 import React from "react";
 import Btn from "../button/Button";
 import { Input } from "../input/Input";
-import profileFormValidate from "../../validation/profileFormValidate";
+import jobApplicationValidate from "../../validations/jobApplicationValidate";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 import { JobApplication } from "../../interfaces/JobApplicationInterface";
 import { JobApplicationLog } from "../../interfaces/JobApplicationLog";
@@ -10,6 +10,8 @@ import ListLogs from "../list-logs/ListLogs";
 import ListDocs from "../list-docs/ListDocs";
 import { TextArea } from "../text-area/TextArea";
 import { InputFile } from "../input-file/InputFile";
+import ValidationErrorMsg from "../validation-error-msg/ValidationErrorMsg";
+import { ValidationError } from "@hapi/joi";
 
 interface Props {
   onSubmit?: (jobAppl: JobApplication) => void;
@@ -25,7 +27,7 @@ interface State {
   jobUrl: string;
   documentsList: DocumentInterface[];
   jobApplicationLog: JobApplicationLog[];
-  err: string | undefined;
+  err: ValidationError | undefined;
 }
 
 export class AddJobForm extends React.Component<Props, State> {
@@ -57,17 +59,13 @@ export class AddJobForm extends React.Component<Props, State> {
     const { onSubmit } = this.props;
     const { err, ...job } = this.state;
 
-    // let result = profileFormValidate({
-    //   fname,
-    //   lname,
-    //   email
-    // });
+    const result = jobApplicationValidate(job);
 
-    // if (!!result.error) {
-    //   this.setState({ err: result.error.message });
-    // } else {
+    if (!!result.error) {
+      this.setState({ err: result.error });
+    } else {
     if (onSubmit) onSubmit(job as JobApplication);
-    // }
+    }
   }
   private _handleFileChange(e:any){
 
@@ -82,7 +80,8 @@ export class AddJobForm extends React.Component<Props, State> {
       statusDate,
       jobUrl,
       documentsList,
-      jobApplicationLog
+      jobApplicationLog,
+      err
     } = this.state;
     return (
       <div className="pv3">
@@ -113,12 +112,12 @@ export class AddJobForm extends React.Component<Props, State> {
             />
             <Input
               id="jobUrl"
-              inputLabel="Url"
+              inputLabel="Job Url"
               type="text"
               value={jobUrl}
               onChange={this._handleChange}
             />
-            <ErrorMsg text={this.state.err} />
+            <ValidationErrorMsg error={err} />
             <div className="dib">
               <Btn label="Save" type="SECONDARY" onClick={this._handleSubmit} />
             </div>
@@ -137,7 +136,7 @@ export class AddJobForm extends React.Component<Props, State> {
                   "No documents uploaded"
                 )}
               </div>
-              <InputFile label="Upload document" onChange={this._handleFileChange} />
+              <InputFile label="Upload document" onChange={this._handleFileChange} multiple accept=".doc, .docx, .pdf" />
               
             </div>
           </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import Btn from "../button/Button";
 import { Input } from "../input/Input";
-import profileFormValidate from "../../validation/profileFormValidate";
+import jobApplicationValidate from "../../validations/jobApplicationValidate";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 import { JobApplication } from "../../interfaces/JobApplicationInterface";
 import { JobApplicationLog } from "../../interfaces/JobApplicationLog";
@@ -10,6 +10,8 @@ import ListLogs from "../list-logs/ListLogs";
 import ListDocs from "../list-docs/ListDocs";
 import { TextArea } from "../text-area/TextArea";
 import { InputFile } from "../input-file/InputFile";
+import { ValidationError } from "@hapi/joi";
+import ValidationErrorMsg from "../validation-error-msg/ValidationErrorMsg";
 
 interface Props {
   jobApplication: JobApplication;
@@ -26,7 +28,7 @@ interface State {
   jobUrl: string;
   documentsList: DocumentInterface[];
   jobApplicationLog: JobApplicationLog[];
-  err: string | undefined;
+  err: ValidationError | undefined;
 }
 
 export class EditJobForm extends React.Component<Props, State> {
@@ -59,31 +61,28 @@ export class EditJobForm extends React.Component<Props, State> {
     this._handleSubmit = this._handleSubmit.bind(this);
     this._handleFileChange = this._handleFileChange.bind(this);
   }
+
   private _handleChange(e: any) {
     let data: any = this.state;
     data[e.target.id] = e.target.value;
     data.err = "";
     this.setState(data);
   }
+
   private _handleSubmit() {
     const { onSubmit } = this.props;
     const { err, ...job } = this.state;
 
-    // let result = profileFormValidate({
-    //   fname,
-    //   lname,
-    //   email
-    // });
-
-    // if (!!result.error) {
-    //   this.setState({ err: result.error.message });
-    // } else {
-    if (onSubmit) onSubmit(job as JobApplication);
-    // }
+    const result = jobApplicationValidate(job);
+    console.log(result)
+    if (result.error) {
+      this.setState({ err: result.error });
+    } else {
+      if (onSubmit) onSubmit(job as JobApplication);
+    }
   }
-  private _handleFileChange(e:any){
 
-  }
+  private _handleFileChange(e: any) {}
 
   render() {
     const {
@@ -94,7 +93,8 @@ export class EditJobForm extends React.Component<Props, State> {
       statusDate,
       jobUrl,
       documentsList,
-      jobApplicationLog
+      jobApplicationLog,
+      err
     } = this.state;
     return (
       <div className="pv3">
@@ -134,17 +134,45 @@ export class EditJobForm extends React.Component<Props, State> {
               value={jobUrl}
               onChange={this._handleChange}
             />
-            <ErrorMsg text={this.state.err} />
+            <ValidationErrorMsg error={err} />
             <div className="dib">
               <Btn label="Save" type="SECONDARY" onClick={this._handleSubmit} />
             </div>
           </div>
 
           <div className="flex flex-column tc w-75 w-25-l">
-            <Btn solid={!(status==="Active")} label="Active" type="ACTIVE-SKIN" onClick={()=>{this.setState({status: "Active"})}} />
-            <Btn solid={!(status==="Interview")} label="Interview" type="INTERVIEW-SKIN" onClick={()=>{this.setState({status:"Interview"})}} />
-            <Btn solid={!(status==="Follow up")} label="Follow up" type="FOLLOWUP-SKIN" onClick={()=>{this.setState({status:"Follow up"})}} />
-            <Btn solid={!(status==="Archived")} label="Archived"  type="ARCHIVED-SKIN" onClick={()=>{this.setState({status:"Archived"})}} />
+            <Btn
+              solid={!(status === "Active")}
+              label="Active"
+              type="ACTIVE-SKIN"
+              onClick={() => {
+                this.setState({ status: "Active" });
+              }}
+            />
+            <Btn
+              solid={!(status === "Interview")}
+              label="Interview"
+              type="INTERVIEW-SKIN"
+              onClick={() => {
+                this.setState({ status: "Interview" });
+              }}
+            />
+            <Btn
+              solid={!(status === "Follow up")}
+              label="Follow up"
+              type="FOLLOWUP-SKIN"
+              onClick={() => {
+                this.setState({ status: "Follow up" });
+              }}
+            />
+            <Btn
+              solid={!(status === "Archived")}
+              label="Archived"
+              type="ARCHIVED-SKIN"
+              onClick={() => {
+                this.setState({ status: "Archived" });
+              }}
+            />
 
             <div className="mv2">
               <h5 className="mv3 gray">Logs</h5>
@@ -167,7 +195,12 @@ export class EditJobForm extends React.Component<Props, State> {
                   "No documents uploaded"
                 )}
               </div>
-              <InputFile label="Upload document" onChange={this._handleFileChange} />
+              <InputFile
+                label="Upload document"
+                onChange={this._handleFileChange}
+                multiple
+                accept=".doc, .docx, .pdf"
+              />
             </div>
           </div>
         </div>
