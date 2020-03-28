@@ -21,7 +21,7 @@ export class DashboardPage extends React.Component<{}, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isAdding: false,
+      isAdding: true,
       isEditing: false,
       jobApplToEdit: null,
       jobAppls: []

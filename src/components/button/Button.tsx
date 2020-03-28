@@ -21,7 +21,7 @@ interface Props {
 class Button extends React.Component<Props, {}> {
   render() {
     const { type, label, onClick, solid, circle, icon, color } = this.props;
- 
+
     let clName = `f6 link dim ph3 pv2 mb2 dib ${color} `;
 
     // if solid attribuite is true add classes to make the button solid

@@ -9,6 +9,7 @@ import { DocumentInterface } from "../../interfaces/DocumentInterface";
 import ListLogs from "../list-logs/ListLogs";
 import ListDocs from "../list-docs/ListDocs";
 import { TextArea } from "../text-area/TextArea";
+import { InputFile } from "../input-file/InputFile";
 
 interface Props {
   onSubmit?: (jobAppl: JobApplication) => void;
@@ -44,6 +45,7 @@ export class AddJobForm extends React.Component<Props, State> {
     };
     this._handleChange = this._handleChange.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleFileChange = this._handleFileChange.bind(this);
   }
   private _handleChange(e: any) {
     let data: any = this.state;
@@ -66,6 +68,9 @@ export class AddJobForm extends React.Component<Props, State> {
     // } else {
     if (onSubmit) onSubmit(job as JobApplication);
     // }
+  }
+  private _handleFileChange(e:any){
+
   }
 
   render() {
@@ -132,6 +137,8 @@ export class AddJobForm extends React.Component<Props, State> {
                   "No documents uploaded"
                 )}
               </div>
+              <InputFile label="Upload document" onChange={this._handleFileChange} />
+              
             </div>
           </div>
         </div>
