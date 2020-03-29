@@ -2,7 +2,7 @@ import React from "react";
 
 import Btn from "../button/Button";
 import { Input } from "../input/Input";
-import loginFormValidate from "../../validation/loginFormValidate";
+import loginFormValidate from "../../validations/loginFormValidate";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 
 interface Props {
