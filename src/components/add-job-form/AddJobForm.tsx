@@ -12,6 +12,7 @@ import { TextArea } from "../text-area/TextArea";
 import { InputFile } from "../input-file/InputFile";
 import ValidationErrorMsg from "../validation-error-msg/ValidationErrorMsg";
 import { ValidationError } from "@hapi/joi";
+import Button from "../button/Button";
 
 interface Props {
   onSubmit?: (jobAppl: JobApplication) => void;
@@ -64,12 +65,10 @@ export class AddJobForm extends React.Component<Props, State> {
     if (!!result.error) {
       this.setState({ err: result.error });
     } else {
-    if (onSubmit) onSubmit(job as JobApplication);
+      if (onSubmit) onSubmit(job as JobApplication);
     }
   }
-  private _handleFileChange(e:any){
-
-  }
+  private _handleFileChange(e: any) {}
 
   render() {
     const {
@@ -117,6 +116,7 @@ export class AddJobForm extends React.Component<Props, State> {
               value={jobUrl}
               onChange={this._handleChange}
             />
+
             <ValidationErrorMsg error={err} />
             <div className="dib">
               <Btn label="Save" type="SECONDARY" onClick={this._handleSubmit} />
@@ -136,8 +136,12 @@ export class AddJobForm extends React.Component<Props, State> {
                   "No documents uploaded"
                 )}
               </div>
-              <InputFile label="Upload document" onChange={this._handleFileChange} multiple accept=".doc, .docx, .pdf" />
-              
+              <InputFile
+                label="Upload document"
+                onChange={this._handleFileChange}
+                multiple
+                accept=".doc, .docx, .pdf"
+              />
             </div>
           </div>
         </div>

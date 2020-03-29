@@ -74,7 +74,7 @@ export class EditJobForm extends React.Component<Props, State> {
     const { err, ...job } = this.state;
 
     const result = jobApplicationValidate(job);
-    console.log(result)
+    console.log(result);
     if (result.error) {
       this.setState({ err: result.error });
     } else {
@@ -117,16 +117,12 @@ export class EditJobForm extends React.Component<Props, State> {
                 onChange={this._handleChange}
               />
             </div>
-
-            {/* SPACE FOR TEXTAREA */}
             <TextArea
               inputLabel="Job Description"
               id="jobDescription"
               value={jobDescription}
               onChange={this._handleChange}
             />
-
-            {/* SPACE FOR TEXTAREA */}
             <Input
               id="jobUrl"
               inputLabel="Url"
