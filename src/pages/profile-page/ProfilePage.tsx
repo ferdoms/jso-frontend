@@ -4,8 +4,9 @@ import { ProfileForm } from "../../components/profile-form/ProfileForm";
 import { UserDetailsDisplay } from "../../components/user- details-display/UserDetailsDisplay";
 import Button from "../../components/button/Button";
 import ProfileSubSection from "../../components/profile-subsection/ProfileSubSection";
+import { withLayout } from "../withLayout";
 
-export const ProfilePage: React.FC = () => {
+export const InnerProfilePage: React.FC = () => {
   // states
   const [isEditing, setIsEditing] = useState(false);
 
@@ -80,3 +81,5 @@ export const ProfilePage: React.FC = () => {
     </Section>
   );
 };
+
+export const ProfilePage = withLayout(InnerProfilePage);

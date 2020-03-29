@@ -45,7 +45,7 @@ export class EmailForm extends React.Component<Props, State> {
     return (
       <div className="w-100 pa3 ">
         <h3 className="f2 tc">Find your Account</h3>
-        <p className="pl2">Please enter your email address search for your account.</p>
+        <p className="pl2">Please enter your email address to search for your account.</p>
         <div className="tc">
           <div className="flex flex-column ">
             <Input

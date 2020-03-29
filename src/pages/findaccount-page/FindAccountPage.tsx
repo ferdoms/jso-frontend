@@ -2,8 +2,9 @@ import React from "react";
 import Section from "../../components/section/Section";
 import { LoginForm } from "../../components/login-form/LoginForm";
 import { EmailForm } from "../../components/email-form/EmailForm";
+import { withLayout } from "../withLayout";
 
-export const FindAccountPage: React.FC = () => {
+const InnerFindAccountPage: React.FC = () => {
   return (
     <Section className="pv6">
       <div className="center bg-white" style={{ maxWidth: "24rem" }}>
@@ -12,3 +13,5 @@ export const FindAccountPage: React.FC = () => {
     </Section>
   );
 };
+
+export const FindAccountPage = withLayout(InnerFindAccountPage);
