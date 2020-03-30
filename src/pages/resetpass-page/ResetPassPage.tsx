@@ -1,8 +1,9 @@
 import React from "react";
 import Section from "../../components/section/Section";
 import { ResetPassForm } from "../../components/resetpass-form/ResetPassForm";
+import { withLayout } from "../withLayout";
 
-export const ResetPassPage: React.FC = () => {
+export const InnerResetPassPage: React.FC = () => {
   return (
     <Section className="pv6">
       <div className="center bg-white" style={{ maxWidth: "24rem" }}>
@@ -11,3 +12,5 @@ export const ResetPassPage: React.FC = () => {
     </Section>
   );
 };
+
+export const ResetPassPage = withLayout(InnerResetPassPage);

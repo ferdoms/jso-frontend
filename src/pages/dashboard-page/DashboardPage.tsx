@@ -8,6 +8,7 @@ import { EditJobForm } from "../../components/edit-job-form/EditJobForm";
 import { JobApplication } from "../../interfaces/JobApplicationInterface";
 import ErrorMsg from "../../components/errorMsg/ErrorMsg";
 import { AddJobForm } from "../../components/add-job-form/AddJobForm";
+import { withLayout } from "../withLayout";
 
 interface State {
   isAdding: boolean;
@@ -17,7 +18,7 @@ interface State {
 }
 
 
-export class DashboardPage extends React.Component<{}, State> {
+class InnerDashboardPage extends React.Component<{}, State> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -134,3 +135,5 @@ export class DashboardPage extends React.Component<{}, State> {
     );
   }
 }
+
+export const DashboardPage = withLayout(InnerDashboardPage);
