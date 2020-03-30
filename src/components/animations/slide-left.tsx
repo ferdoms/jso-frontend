@@ -18,12 +18,13 @@ const defaultStyle: CSSProperties = {
 const transitionStyles: any = {
   entering: { transform: "translate( -100% ,0)" },
   entered: {},
-  exiting: {transform: "translate( 100%, 0)"},
+  exiting: { transform: "translate( 100%, 0)" },
   exited: { transform: "translate( 100%, 0)" }
 };
 interface Props {
   in: boolean;
   children: ReactNode;
+  className?: string;
 }
 
 export const SlideLeft: SFC<Props> = props => (
@@ -36,6 +37,7 @@ export const SlideLeft: SFC<Props> = props => (
   >
     {state => (
       <div
+        className={props.className}
         style={{
           ...defaultStyle,
           ...transitionStyles[state]
