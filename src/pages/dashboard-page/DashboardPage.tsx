@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Section from "../../components/section/Section";
 import { FadeIn } from "../../components/animations/fade-in";
 import JobApplBoard from "../../components/job-appl-board/JobApplBoard";
@@ -22,7 +22,7 @@ class InnerDashboardPage extends React.Component<{}, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isAdding: true,
+      isAdding: false,
       isEditing: false,
       jobApplToEdit: null,
       jobAppls: []
@@ -97,11 +97,11 @@ class InnerDashboardPage extends React.Component<{}, State> {
           onEditJobClick={this._onEdit}
         />
 
-        <FadeIn in={isEditing || isAdding}>
+        <FadeIn in={isEditing || isAdding} className="z-5 fixed">
           <div className="bg-mid-gray fixed h-100 w-100 top-0 left-0"></div>
         </FadeIn>
-        <SlideLeft in={isEditing}>
-          <div className=" ml7-l h-100 bg-white ph2 ph4-ns pr6-l pv4 overflow-y-scroll">
+        <SlideLeft in={isEditing} className="z-999 fixed">
+          <div className="ml7-l h-100 bg-white ph2 ph4-ns pr6-l pv4 overflow-y-scroll">
             <a
               onClick={() => {
                 this._onCloseEdit();
@@ -119,8 +119,8 @@ class InnerDashboardPage extends React.Component<{}, State> {
             )}
           </div>
         </SlideLeft>
-        <SlideLeft in={isAdding}>
-          <div className=" ml7-l h-100 bg-white ph2 ph4-ns pr6-l pv4 overflow-y-scroll">
+        <SlideLeft in={isAdding} className="z-999 fixed">
+          <div className=" ml7-l h-100 bg-white ph2 ph4-ns pr6-l pv4 overflow-y-scroll z-999">
             <a
               onClick={() => {
                 this._onCloseAdd();
