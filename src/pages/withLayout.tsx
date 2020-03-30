@@ -18,7 +18,6 @@ export const withLayout = <P extends object>(
     }
     render() {
       const { isLoggedIn, ...props } = this.props;
-      console.log(props);
       return (
         <>
           <Header isLoggedIn={isLoggedIn} />

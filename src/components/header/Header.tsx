@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Nav } from "../navbar/Nav";
 import Button from "../button/Button";
+import { NavLink, Link } from "react-router-dom";
 
 interface Props {
   isLoggedIn:boolean;
@@ -8,30 +9,34 @@ interface Props {
 
 export const Header: React.FC<Props> = (props) => {
   const {isLoggedIn} = props;
+  const navLinkClasses = "link dim dark-gray f6 f5-l pb1 dib mr3 mr4-l";
+  const activeNavLinkClasses = "bb b--back"
 
   return (
     <Nav isLoggedIn = {isLoggedIn}>
       <Nav.PrivateItem>
-        <a
-          className="link dim dark-gray f6 f5-l dib mr3 mr4-l"
-          href="#"
-          title="Home"
+        <NavLink
+          className={navLinkClasses}
+          activeClassName={activeNavLinkClasses}
+          to="/dashboard"
+          title="Dashboard"
         >
           Dashboard
-        </a>
+        </NavLink>
       </Nav.PrivateItem>
       <Nav.PrivateItem>
-        <a
-          className="link dim dark-gray f6 f5-l dib mr3 mr4-l"
-          href="#"
+        <NavLink
+          className={navLinkClasses}
+          activeClassName={activeNavLinkClasses}
+          to="Settings"
           title="Settings"
         >
           Settings
-        </a>
+        </NavLink>
       </Nav.PrivateItem>
       <Nav.PrivateItem>
         <a
-          className="link dim dark-gray f6 f5-l dib mr3 mr4-l"
+          className={navLinkClasses}
           href="#"
           onClick={() => {}}
           title="Logout"
@@ -40,32 +45,35 @@ export const Header: React.FC<Props> = (props) => {
         </a>
       </Nav.PrivateItem>
       <Nav.GuestItem>
-        <a
-          className="link dim dark-gray f6 f5-l dib mr3 mr4-l"
-          href="#"
+        <NavLink
+          className={navLinkClasses}
+          activeClassName={activeNavLinkClasses}
+          to="/"
+          exact={true}
           title="Home"
         >
           Home
-        </a>
+        </NavLink>
       </Nav.GuestItem>
       <Nav.GuestItem>
-        <a
-          className="link dim dark-gray f6 f5-l dib mr3 mr4-l"
-          href="#"
-          title="Home"
+        <NavLink
+          className={navLinkClasses}
+          activeClassName={activeNavLinkClasses}
+          to="/about"
+          title="About"
         >
           About
-        </a>
+        </NavLink>
       </Nav.GuestItem>
       <Nav.GuestItem>
         <Button label="Login" type="PRIMARY" onClick={()=>{}} />
-        <a
+        <Link
           className="f6 black link dim ph3 pv2 ma2 dib bg-primary"
-          href="#"
+          to="/signup"
           title="Sign up"
         >
           Sign up
-        </a>
+        </Link>
       </Nav.GuestItem>
     </Nav>
   );
