@@ -1,6 +1,5 @@
 import React, { ReactNode } from "react";
-import "./label.css";
-import ErrorMsg from "../errorMsg/ErrorMsg";
+import "./textarea.css";
 
 interface Props {
   id: string;
@@ -62,7 +61,7 @@ export class TextArea extends React.Component<Props, State> {
   render() {
     const { inputLabel, id, value, errComponent, disabled } = this.props;
     return (
-      <div className="dib relative mv2">
+      <div className="dib relative mt2 mb3 bb b--black-20">
         <label
           // check state the input, whether it is active then apply the class for floating label
           className={this.state.fieldActivate ? "field-active" : ""}
@@ -77,7 +76,7 @@ export class TextArea extends React.Component<Props, State> {
           style={{resize:"vertical"}}
           id={id}
           ref={this.state.inputRef}
-          className="h5 floating-label input-reset ba b--black-20 pa2 mb2 db w-100"
+          className="h5 floating-label b--none pa2 db w-100"
           value={value}
           onFocus={this.activateField}
           onBlur={this._handleBlur}

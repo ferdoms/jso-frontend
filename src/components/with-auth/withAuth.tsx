@@ -17,10 +17,11 @@ export const withAuth = <P extends object>(AuthedComponent: ComponentType<P>) =>
     constructor(props: P & whithAuthProps) {
       super(props);
       this.state = {
-        isLoggedIn: false,
+        isLoggedIn: true,
       };
     }
     componentDidMount() {
+      // fetch is API
     }
 
     render() {
