@@ -3,7 +3,6 @@ import React from "react";
 import Btn from "../button/Button";
 import { Input } from "../input/Input";
 import emailFormValidate from "../../validations/emailFormValidate";
-import ErrorMsg from "../errorMsg/ErrorMsg";
 import { ValidationError } from "@hapi/joi";
 
 interface Props {

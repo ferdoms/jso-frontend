@@ -8,6 +8,8 @@ import { ProfilePage } from "../pages/profile-page/ProfilePage";
 import { FindAccountPage } from "../pages/findaccount-page/FindAccountPage";
 import { ResetPassPage } from "../pages/resetpass-page/ResetPassPage";
 import { SignupPage } from "../pages/signup-page/SignupPage";
+import { HomePage } from "../pages/home-page/HomePage";
+import { AboutPage } from "../pages/about-page/AboutPage";
 
 const ROUTES: RouteInterface[] = [
   {
@@ -16,7 +18,7 @@ const ROUTES: RouteInterface[] = [
     exact: true,
     isProtected: false,
     guestOnly: true,
-    component: () => <h1>homepage</h1>
+    component: withAuth(HomePage)
   },
   {
     path: "/about",
@@ -24,7 +26,7 @@ const ROUTES: RouteInterface[] = [
     exact: true,
     isProtected: false,
     guestOnly: true,
-    component: () => <h1>About</h1>
+    component: withAuth(AboutPage)
   },
   {
     path: "/signup",
