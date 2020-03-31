@@ -1,33 +1,48 @@
 import React, { Component, ComponentType } from "react";
 import { Redirect } from "react-router-dom";
 import * as H from "history";
+import { withAuthApi } from "../../services/Api";
+import { InjectedWithAuthProps } from "./InjectedWithAuthProps";
 
-interface whithAuthProps {
+
+interface IProps {
   isProtected: boolean;
   guestOnly: boolean;
   location: H.Location;
+  // isLoggedIn?: () => boolean;
 }
+
+type whithAuthProps = IProps & InjectedWithAuthProps;
 
 interface whithAuthState {
   isLoggedIn: boolean;
 }
-
-export const withAuth = <P extends object>(AuthedComponent: ComponentType<P>) =>
+/**
+ * 
+ * @param AuthedComponent Component Class to be AuthoGuarded
+ */
+export const withAuthGuard = <P extends object>(AuthedComponent: ComponentType<P>) => {
   class withAuth extends Component<P & whithAuthProps, whithAuthState> {
     constructor(props: P & whithAuthProps) {
       super(props);
       this.state = {
-        isLoggedIn: false,
+        isLoggedIn: false
       };
     }
     componentDidMount() {
-      // fetch is API
+      // console.log(this.props.isLoggedIn!())
+      // const res = 
+      // if(res != this.state.isLoggedIn){
+      //   this.setState({isLoggedIn: res})
+      // }
+      // 
     }
 
     render() {
-      const { isLoggedIn } = this.state;
+      // const { isLoggedIn } = this.state;
       const { isProtected, guestOnly, ...props } = this.props;
-
+      const isLoggedIn = this.props.isLoggedIn!()
+      
       if (isProtected && !isLoggedIn) {
         return (
           <Redirect
@@ -51,4 +66,8 @@ export const withAuth = <P extends object>(AuthedComponent: ComponentType<P>) =>
       }
       return <AuthedComponent {...(props as P)} isLoggedIn={isLoggedIn} />;
     }
-  };
+  }
+  // inject Authentication API
+  return withAuthApi(withAuth);
+};
+

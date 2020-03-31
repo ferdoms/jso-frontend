@@ -20,7 +20,7 @@ export const withLayout = <P extends object>(
       const { isLoggedIn, ...props } = this.props;
       return (
         <>
-          <Header isLoggedIn={isLoggedIn} />
+          <Header />
           <div className="z-0">
             <WrappedComponent {...(props as P)} />
           </div>

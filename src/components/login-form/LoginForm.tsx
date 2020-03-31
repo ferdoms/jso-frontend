@@ -5,10 +5,16 @@ import { Input } from "../input/Input";
 import loginFormValidate from "../../validations/loginFormValidate";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 import { ValidationError } from "@hapi/joi";
+import { withAuthApi } from "../../services/Api";
+import { InjectedLoginFormProps } from "./InjectedLoginFormProps";
+import { UserLoginInterface } from "../../interfaces/UserLoginInterface";
+import * as H from "history";
 
-interface Props {
-  onLogin?: () => void;
+interface IProps {
+  history?: H.History;
 }
+
+type Props = IProps & InjectedLoginFormProps;
 
 interface State {
   email: string;
@@ -16,7 +22,7 @@ interface State {
   err: ValidationError | undefined;
 }
 
-export class LoginForm extends React.Component<Props, State> {
+class InnerLoginForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -35,17 +41,25 @@ export class LoginForm extends React.Component<Props, State> {
   }
   private _handleLogin() {
     const { onLogin } = this.props;
-    const { email, password } = this.state;
+    const { err, ...user } = this.state;
 
-    let result = loginFormValidate({ email, password });
+    const validationResult = loginFormValidate(user);
 
-    if (!!result.error) this.setState({ err: result.error});
+    if (!!validationResult.error)
+      this.setState({ err: validationResult.error });
 
-    if (onLogin) onLogin();
+    try {
+      if (onLogin && !validationResult.error) {
+        onLogin(user as UserLoginInterface);
+        this.props.history!.push("/dashboard");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
-    const { err } = this.state
+    const { err } = this.state;
     return (
       <div className="w-100 tc pa3 ">
         <h2 className="f2">Login</h2>
@@ -72,3 +86,5 @@ export class LoginForm extends React.Component<Props, State> {
     );
   }
 }
+
+export const LoginForm = withAuthApi(InnerLoginForm);
