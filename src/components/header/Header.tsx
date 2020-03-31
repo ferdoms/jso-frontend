@@ -4,16 +4,16 @@ import Button from "../button/Button";
 import { NavLink, Link } from "react-router-dom";
 
 interface Props {
-  isLoggedIn:boolean;
+  isLoggedIn: boolean;
 }
 
-export const Header: React.FC<Props> = (props) => {
-  const {isLoggedIn} = props;
+export const Header: React.FC<Props> = props => {
+  const { isLoggedIn } = props;
   const navLinkClasses = "link dim dark-gray f6 f5-l pb1 dib mr3 mr4-l";
-  const activeNavLinkClasses = "bb b--back"
+  const activeNavLinkClasses = "bb b--back";
 
   return (
-    <Nav isLoggedIn = {isLoggedIn}>
+    <Nav isLoggedIn={isLoggedIn}>
       <Nav.PrivateItem>
         <NavLink
           className={navLinkClasses}
@@ -66,7 +66,13 @@ export const Header: React.FC<Props> = (props) => {
         </NavLink>
       </Nav.GuestItem>
       <Nav.GuestItem>
-        <Button label="Login" type="PRIMARY" onClick={()=>{}} />
+        <Link
+          className="f6 black link dim ph3 pv2 ma2 dib bg-primary"
+          to="/login"
+          title="Login"
+        >
+          Login
+        </Link>
         <Link
           className="f6 black link dim ph3 pv2 ma2 dib bg-primary"
           to="/signup"

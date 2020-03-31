@@ -62,8 +62,8 @@ const ROUTES: RouteInterface[] = [
     path: "/forgotpassword",
     key: "FORGOTPASSWORD",
     exact: true,
-    isProtected: true,
-    guestOnly: false,
+    isProtected: false,
+    guestOnly: true,
     component: withAuth(FindAccountPage)
   },
   {

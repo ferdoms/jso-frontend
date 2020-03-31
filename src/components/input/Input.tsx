@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import "./input.css";
+import { withValidationErrorMsg } from "../validation-error-msg/withValidationErrorMsg";
 
 interface Props {
   id: string;
@@ -10,6 +11,7 @@ interface Props {
   onBlur?: (event?: React.FocusEvent<HTMLInputElement>) => void;
   errComponent?: ReactNode;
   disabled?: boolean;
+  className?: string | undefined;
 }
 interface State {
   inputValue: string;
@@ -17,7 +19,7 @@ interface State {
   inputRef: any;
 }
 // code partially extracted from: https://medium.com/@ilonacodes/creating-floating-label-placeholder-for-input-with-react-b912233b7005
-export class Input extends React.Component<Props, State> {
+export class InnerInput extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -60,9 +62,17 @@ export class Input extends React.Component<Props, State> {
   }
 
   render() {
-    const { inputLabel, type, id, value, errComponent, disabled } = this.props;
+    const {
+      inputLabel,
+      type,
+      id,
+      value,
+      errComponent,
+      disabled,
+      className
+    } = this.props;
     return (
-      <div className="dib relative mt2 mb3 bb b--black-20">
+      <div className={"dib relative mt2 mb3 bb b--black-20 " + className}>
         <label
           // check state the input, whether it is active then apply the class for floating label
           className={this.state.fieldActivate ? "field-active" : ""}
@@ -88,3 +98,5 @@ export class Input extends React.Component<Props, State> {
     );
   }
 }
+
+export const Input = withValidationErrorMsg(InnerInput);

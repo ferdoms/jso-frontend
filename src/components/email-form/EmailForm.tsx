@@ -4,6 +4,7 @@ import Btn from "../button/Button";
 import { Input } from "../input/Input";
 import emailFormValidate from "../../validations/emailFormValidate";
 import ErrorMsg from "../errorMsg/ErrorMsg";
+import { ValidationError } from "@hapi/joi";
 
 interface Props {
   onSubmit?: () => void;
@@ -11,7 +12,7 @@ interface Props {
 
 interface State {
   email: string;
-  err: string | undefined;
+  err: ValidationError | undefined;
 }
 
 export class EmailForm extends React.Component<Props, State> {
@@ -36,25 +37,26 @@ export class EmailForm extends React.Component<Props, State> {
 
     let result = emailFormValidate({ email });
 
-    if (!!result.error) this.setState({ err: result.error.message });
+    if (!!result.error) this.setState({ err: result.error });
 
     if (onSubmit) onSubmit();
   }
 
   render() {
+    const { err } = this.state;
     return (
       <div className="w-100 pa3 ">
         <h3 className="f2 tc">Find your Account</h3>
         <p className="pl2">Please enter your email address to search for your account.</p>
         <div className="tc">
-          <div className="flex flex-column ">
+          <div className="flex flex-column mb2">
             <Input
               id="email"
               inputLabel="Email"
               type="text"
               value={this.state.email}
               onChange={this._handleChange}
-              errComponent={<ErrorMsg text={this.state.err} />}
+              error={err}
             />
           </div>
           <Btn label="Submit" type="SECONDARY" onClick={this._handleSubmit} />
