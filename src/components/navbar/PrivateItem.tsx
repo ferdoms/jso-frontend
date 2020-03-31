@@ -4,7 +4,7 @@ import { Item } from "./Item";
 
 export const PrivateItem: React.FC = props => {
   const { isLoggedIn } = useContext(NavContext);
-  if (isLoggedIn) return isLoggedIn && <Item {...props} />;
+  if (isLoggedIn) return <Item {...props} />;
 
   return <></>;
 };

@@ -3,22 +3,32 @@ interface errorsDictionaryInterface {
 }
 
 export const errorsDictionary:errorsDictionaryInterface = {
-    // email
-    ['email.string.empty']: 'Please enter an Email',
     
+    // fname
+    ['fname.string.min']: 'First Name must have at least 2 characters.',
+    ['fname.string.empty']: 'Please type in your First Name.',
+
+    //name
+    ['lname.string.min']: 'First Name must have at least 2 characters.',
+    ['lname.string.empty']: 'Please type in your Last Name.',
+    
+    // email
+    ['email.string.empty']: 'Please enter an Email.',
+    ['email.string.email']: 'Please type in a valid email.',
+        
     // company
-    ['companyName.string.empty']: 'Please enter a Company Name',
-    ['companyName.string.min']: 'Company Name must have at least 2 characters',
+    ['companyName.string.empty']: 'Please enter a Company Name.',
+    ['companyName.string.min']: 'Company Name must have at least 2 characters.',
 
     // job title
-    ['jobTitle.string.empty']: 'Please enter a Job Title',
-    ['jobTitle.string.min']: 'Job Title must have at least 2 characters',
+    ['jobTitle.string.empty']: 'Please enter a Job Title.',
+    ['jobTitle.string.min']: 'Job Title must have at least 2 characters.',
 
     // job description
-    ['jobDescription.string.empty']: 'Please enter a Job Description',
-    ['jobDescription.string.min']: 'Job Description must have at least 2 characters',
+    ['jobDescription.string.empty']: 'Please enter a Job Description.',
+    ['jobDescription.string.min']: 'Job Description must have at least 2 characters.',
 
     // job url
-    ['jobUrl.string.empty']: 'Please enter the Job Url',
-    ['jobUrl.string.pattern.base']: 'Please enter a valid url',
+    ['jobUrl.string.empty']: 'Please enter the Job Url.',
+    ['jobUrl.string.pattern.base']: 'Please enter a valid url.',
 }

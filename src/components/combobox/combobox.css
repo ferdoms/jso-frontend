@@ -18,3 +18,6 @@ label {
   .floating-label {
     -webkit-appearance: none !important;
    }
+   select:focus {
+    outline: none;
+  }

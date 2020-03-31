@@ -21,6 +21,7 @@ export const withAuth = <P extends object>(AuthedComponent: ComponentType<P>) =>
       };
     }
     componentDidMount() {
+      // fetch is API
     }
 
     render() {

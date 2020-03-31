@@ -32,7 +32,7 @@ export class Combobox extends React.Component<Props, State> {
     this.props.onChange(v);
     e.preventDefault();
   }
-  private _stringHelper (str:string) {
+  _stringHelper (str:string) {
     return (str.charAt(0).toLowerCase() + str.substr(1)).replace(/\s/g, "")
 }
 
@@ -41,10 +41,10 @@ export class Combobox extends React.Component<Props, State> {
     const { value } = this.state;
     
     return (
-      <div className="dib relative mv2">
+      <div className="dib relative mt2 mb3 bb b--black-20">
         <select
           id={id}
-          className="ba b--black-20 pa2 mb2 db bg-white"
+          className="b--none pa2  db bg-white"
           onChange={this.updateComboValue}
         >
           {options.map((item:string, index:number) => {

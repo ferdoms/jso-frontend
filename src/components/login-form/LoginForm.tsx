@@ -4,6 +4,7 @@ import Btn from "../button/Button";
 import { Input } from "../input/Input";
 import loginFormValidate from "../../validations/loginFormValidate";
 import ErrorMsg from "../errorMsg/ErrorMsg";
+import { ValidationError } from "@hapi/joi";
 
 interface Props {
   onLogin?: () => void;
@@ -12,7 +13,7 @@ interface Props {
 interface State {
   email: string;
   password: string;
-  err: string | undefined;
+  err: ValidationError | undefined;
 }
 
 export class LoginForm extends React.Component<Props, State> {
@@ -38,12 +39,13 @@ export class LoginForm extends React.Component<Props, State> {
 
     let result = loginFormValidate({ email, password });
 
-    if (!!result.error) this.setState({ err: result.error.message });
+    if (!!result.error) this.setState({ err: result.error});
 
     if (onLogin) onLogin();
   }
 
   render() {
+    const { err } = this.state
     return (
       <div className="w-100 tc pa3 ">
         <h2 className="f2">Login</h2>
@@ -54,6 +56,7 @@ export class LoginForm extends React.Component<Props, State> {
             type="text"
             value={this.state.email}
             onChange={this._handleChange}
+            error={err}
           />
           <Input
             id="password"
@@ -61,9 +64,9 @@ export class LoginForm extends React.Component<Props, State> {
             type="password"
             value={this.state.password}
             onChange={this._handleChange}
+            error={err}
           />
         </div>
-        <ErrorMsg text={this.state.err} />
         <Btn label="Login" type="SECONDARY" onClick={this._handleLogin} />
       </div>
     );
