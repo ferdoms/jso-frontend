@@ -1,6 +1,4 @@
 import React, { Component, ComponentType } from "react";
-import { Redirect } from "react-router-dom";
-import * as H from "history";
 import { UserLoginInterface } from "../interfaces/UserLoginInterface";
 import { InjectedLoginFormProps } from "../components/login-form/InjectedLoginFormProps";
 import { InjectedHeaderProps } from "../components/header/InjectedHeaderProps";
@@ -14,18 +12,12 @@ interface IProps {
 
 type InjectedProps = InjectedLoginFormProps & InjectedHeaderProps & InjectedWithAuthProps & IProps;
 
-interface whithAuthState {
-  isLoggedIn: boolean;
-}
 export const withAuthApi = <P extends InjectedProps>(
   WrappedComponent: ComponentType<P>
 ) =>
-  class ApiContainer extends Component<P, whithAuthState> {
+  class ApiContainer extends Component<P, {}> {
     constructor(props: P) {
       super(props);
-      this.state = {
-        isLoggedIn: false
-      };
       this._login = this._login.bind(this);
       this._logout = this._logout.bind(this);
       this._isLoggedIn = this._isLoggedIn.bind(this);
@@ -47,7 +39,6 @@ export const withAuthApi = <P extends InjectedProps>(
     }
 
     render() {
-      console.log("api")
       return (
         <WrappedComponent
           {...(this.props as P)}

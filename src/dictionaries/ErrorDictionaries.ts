@@ -31,4 +31,10 @@ export const errorsDictionary:errorsDictionaryInterface = {
     // job url
     ['jobUrl.string.empty']: 'Please enter the Job Url.',
     ['jobUrl.string.pattern.base']: 'Please enter a valid url.',
+
+
+        // password
+        ['confirm_pass.any.only']: 'Password and Password Confimation has to match.',
+        ['password.string.pattern.base']: 'Your password must be between 8 and 12 characters long.',
+    
 }

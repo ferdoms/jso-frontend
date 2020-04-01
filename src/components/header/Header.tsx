@@ -2,7 +2,7 @@ import React, { useState, Component } from "react";
 import { Nav } from "../navbar/Nav";
 import { NavLink, Link } from "react-router-dom";
 import { InjectedHeaderProps } from "./InjectedHeaderProps";
-import { withAuthApi } from "../../services/Api";
+import { withAuthApi } from "../../services/AuthApi";
 
 interface IProps {}
 

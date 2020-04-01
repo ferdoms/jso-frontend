@@ -1,11 +1,9 @@
 import React from "react";
-
 import Btn from "../button/Button";
 import { Input } from "../input/Input";
 import loginFormValidate from "../../validations/loginFormValidate";
-import ErrorMsg from "../errorMsg/ErrorMsg";
 import { ValidationError } from "@hapi/joi";
-import { withAuthApi } from "../../services/Api";
+import { withAuthApi } from "../../services/AuthApi";
 import { InjectedLoginFormProps } from "./InjectedLoginFormProps";
 import { UserLoginInterface } from "../../interfaces/UserLoginInterface";
 import * as H from "history";

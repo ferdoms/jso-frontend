@@ -1,7 +1,7 @@
 import React, { Component, ComponentType } from "react";
 import { Redirect } from "react-router-dom";
 import * as H from "history";
-import { withAuthApi } from "../../services/Api";
+import { withAuthApi } from "../../services/AuthApi";
 import { InjectedWithAuthProps } from "./InjectedWithAuthProps";
 
 

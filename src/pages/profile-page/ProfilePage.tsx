@@ -5,8 +5,18 @@ import { UserDetailsDisplay } from "../../components/user- details-display/UserD
 import Button from "../../components/button/Button";
 import ProfileSubSection from "../../components/profile-subsection/ProfileSubSection";
 import { withLayout } from "../withLayout";
+import { withAccountApi } from "../../services/AccountApi";
+import { InjectedProfilePageProps } from "./InjectedProfilePageProps";
+import * as H from "history";
 
-export const InnerProfilePage: React.FC = () => {
+interface IProps{
+  history?: H.History;
+}
+
+
+type Props = InjectedProfilePageProps & IProps;
+
+export const InnerProfilePage: React.FC<Props> = props => {
   // states
   const [isEditing, setIsEditing] = useState(false);
 
@@ -17,6 +27,11 @@ export const InnerProfilePage: React.FC = () => {
     email: "marinhosilva.fernando@gmail.com",
     profileImage: ""
   };
+
+  const _handleDelete = () =>{
+    props.onDeleteAccount!()
+    props.history!.push("/")
+  }
 
   let { profileImage, ...udRest } = userDetails;
 
@@ -74,7 +89,7 @@ export const InnerProfilePage: React.FC = () => {
             <Button label="Change Password" type="GRAY" onClick={() => {}} />
           </ProfileSubSection>
           <ProfileSubSection title="Account">
-            <Button label="DELETE" type="DANGER" solid onClick={() => {}} />
+            <Button label="DELETE" type="DANGER" solid onClick={_handleDelete} />
           </ProfileSubSection>
         </div>
       </div>
@@ -82,4 +97,6 @@ export const InnerProfilePage: React.FC = () => {
   );
 };
 
-export const ProfilePage = withLayout(InnerProfilePage);
+
+const ProfilePageWithAccountApi = withAccountApi(InnerProfilePage)
+export const ProfilePage = withLayout(ProfilePageWithAccountApi);

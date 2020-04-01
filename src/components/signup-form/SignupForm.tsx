@@ -1,14 +1,18 @@
 import React from "react";
-
 import Btn from "../button/Button";
 import { Input } from "../input/Input";
 import signupFormValidate from "../../validations/signupFormValidate";
-import ErrorMsg from "../errorMsg/ErrorMsg";
 import { ValidationError } from "@hapi/joi";
+import { InjectedSignupFormProps } from "./InjectedSignupFormProps";
+import { UserSignupInterface } from "../../interfaces";
+import * as H from "history";
+import { withAccountApi } from "../../services/AccountApi";
 
-interface Props {
-  onSubmit?: () => void;
+interface IProps {
+  history?: H.History;
 }
+
+type Props = InjectedSignupFormProps & IProps;
 
 interface State {
   fname: string;
@@ -19,7 +23,7 @@ interface State {
   err: ValidationError | undefined;
 }
 
-export class SignupForm extends React.Component<Props, State> {
+class InnerSignupForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -43,18 +47,26 @@ export class SignupForm extends React.Component<Props, State> {
     const { onSubmit } = this.props;
     const { fname, lname, email, password, confirm_pass } = this.state;
 
-    let result = signupFormValidate({
+    const validationResult = signupFormValidate({
       fname,
       lname,
       email,
       password,
-      confirm_pass,
+      confirm_pass
     });
-    console.log(result);
 
-    if (!!result.error) this.setState({ err: result.error });
-
-    if (onSubmit) onSubmit();
+    if (!!validationResult.error)
+      this.setState({ err: validationResult.error });
+      
+    try {
+      if (onSubmit && !validationResult.error) {
+        console.log("_handleSubmit.if")
+        onSubmit({ fname, lname, email, password } as UserSignupInterface);
+        this.props.history!.push("/dashboard");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
@@ -109,3 +121,5 @@ export class SignupForm extends React.Component<Props, State> {
     );
   }
 }
+
+export const SignupForm = withAccountApi(InnerSignupForm);
