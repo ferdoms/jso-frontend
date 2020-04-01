@@ -1,11 +1,8 @@
 import React from "react";
+import { UserAccountInterface } from "../../interfaces";
 
 interface Props {
-  display: {
-    fname: string;
-    lname: string;
-    email: String;
-  };
+  display: UserAccountInterface
 }
 
 export class UserDetailsDisplay extends React.Component<Props, {}> {

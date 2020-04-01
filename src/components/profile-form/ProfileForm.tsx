@@ -6,13 +6,10 @@ import profileFormValidate from "../../validations/profileFormValidate";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 import { ResetPassPage } from "../../pages/resetpass-page/ResetPassPage";
 import { ResetPassForm } from "../resetpass-form/ResetPassForm";
+import { UserAccountInterface } from "../../interfaces";
 
 interface Props {
-  userData: {
-    fname: string;
-    lname: string;
-    email: string;
-  };
+  userData: UserAccountInterface
   onSubmit?: ({}:any) => void;
 }
 
