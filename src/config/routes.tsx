@@ -72,8 +72,8 @@ const ROUTES: RouteInterface[] = [
     path: "/resetpassword",
     key: "RESETPASSWORD",
     exact: true,
-    isProtected: false,
-    guestOnly: true,
+    isProtected: true,
+    guestOnly: false,
     component: withAuthGuard(ResetPassPage)
   },  
 ];

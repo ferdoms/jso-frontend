@@ -80,7 +80,7 @@ export const InnerProfilePage: React.FC<Props> = props => {
             </div>
           </ProfileSubSection>
           <ProfileSubSection title="Password">
-            <Button label="Change Password" type="GRAY" onClick={() => {}} />
+            <Button label="Change Password" type="GRAY" onClick={() => {props.history!.push("/resetpassword")}} />
           </ProfileSubSection>
           <ProfileSubSection title="Account">
             <Button
