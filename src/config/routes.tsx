@@ -1,7 +1,7 @@
 import React from "react";
 import { RenderRoutes } from "../components/render-routes/RenderRoutes";
 import { RouteInterface } from "../interfaces/RouteInterface";
-import { withAuth } from "../components/with-auth/withAuth";
+import { withAuthGuard } from "../components/with-auth-guard/withAuthGuard";
 import { LoginPage } from "../pages/login-page/LoginPage";
 import { DashboardPage } from "../pages/dashboard-page/DashboardPage";
 import { ProfilePage } from "../pages/profile-page/ProfilePage";
@@ -18,7 +18,7 @@ const ROUTES: RouteInterface[] = [
     exact: true,
     isProtected: false,
     guestOnly: true,
-    component: withAuth(HomePage)
+    component: withAuthGuard(HomePage)
   },
   {
     path: "/about",
@@ -26,7 +26,7 @@ const ROUTES: RouteInterface[] = [
     exact: true,
     isProtected: false,
     guestOnly: true,
-    component: withAuth(AboutPage)
+    component: withAuthGuard(AboutPage)
   },
   {
     path: "/signup",
@@ -34,7 +34,7 @@ const ROUTES: RouteInterface[] = [
     exact: true,
     isProtected: false,
     guestOnly: true,
-    component: withAuth(SignupPage)
+    component: withAuthGuard(SignupPage)
   },
   {
     path: "/login",
@@ -42,7 +42,7 @@ const ROUTES: RouteInterface[] = [
     exact: true,
     isProtected: false,
     guestOnly: true,
-    component: withAuth(LoginPage)
+    component: withAuthGuard(LoginPage)
   },
   {
     path: "/dashboard",
@@ -50,7 +50,7 @@ const ROUTES: RouteInterface[] = [
     exact: true,
     isProtected: true,
     guestOnly: false,
-    component: withAuth(DashboardPage)
+    component: withAuthGuard(DashboardPage)
   },
   {
     path: "/settings",
@@ -58,7 +58,7 @@ const ROUTES: RouteInterface[] = [
     exact: true,
     isProtected: true,
     guestOnly: false,
-    component: withAuth(ProfilePage)
+    component: withAuthGuard(ProfilePage)
   },
   {
     path: "/forgotpassword",
@@ -66,15 +66,15 @@ const ROUTES: RouteInterface[] = [
     exact: true,
     isProtected: false,
     guestOnly: true,
-    component: withAuth(FindAccountPage)
+    component: withAuthGuard(FindAccountPage)
   },
   {
     path: "/resetpassword",
     key: "RESETPASSWORD",
     exact: true,
-    isProtected: false,
-    guestOnly: true,
-    component: withAuth(ResetPassPage)
+    isProtected: true,
+    guestOnly: false,
+    component: withAuthGuard(ResetPassPage)
   },  
 ];
 

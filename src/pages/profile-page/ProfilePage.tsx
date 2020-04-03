@@ -5,20 +5,32 @@ import { UserDetailsDisplay } from "../../components/user- details-display/UserD
 import Button from "../../components/button/Button";
 import ProfileSubSection from "../../components/profile-subsection/ProfileSubSection";
 import { withLayout } from "../withLayout";
+import { withAccountApi } from "../../services/AccountApi";
+import { InjectedProfilePageProps } from "./InjectedProfilePageProps";
+import * as H from "history";
+import { UserAccountInterface } from "../../interfaces";
 
-export const InnerProfilePage: React.FC = () => {
+interface IProps {
+  history?: H.History;
+}
+
+type Props = InjectedProfilePageProps & IProps;
+
+export const InnerProfilePage: React.FC<Props> = props => {
   // states
   const [isEditing, setIsEditing] = useState(false);
 
-  // ***** VERIFY THE POSSIBILITY TO MAKE userDetail A STATE OR UPDATE THROUGH A API CALL
-  let userDetails = {
-    fname: "Fernando",
-    lname: "Marinho",
-    email: "marinhosilva.fernando@gmail.com",
-    profileImage: ""
+  const _handleDelete = () => {
+    props.onDeleteAccount!();
+    props.history!.push("/");
+  };
+  const _handleUpdate = (user: UserAccountInterface) => {
+    props.onUpdateUser!(user);
   };
 
-  let { profileImage, ...udRest } = userDetails;
+  const { userDetails } = props;
+
+  if(!userDetails) throw new Error("No user Data")
 
   return (
     <Section className="pv6 ">
@@ -47,18 +59,15 @@ export const InnerProfilePage: React.FC = () => {
             <div className="overflow-auto pb4">
               {isEditing ? (
                 <ProfileForm
-                  userData={udRest}
-                  onSubmit={udUpdated => {
-                    const { fname, lname, email } = udUpdated;
-                    userDetails.fname = fname;
-                    userDetails.lname = lname;
-                    userDetails.email = email;
+                  userData={userDetails}
+                  onSubmit={user => {
+                    props.onUpdateUser!(user);
                     setIsEditing(false);
                   }}
                 />
               ) : (
                 <>
-                  <UserDetailsDisplay display={udRest} />
+                  <UserDetailsDisplay display={userDetails} />
                   <Button
                     label="Edit"
                     type="SECONDARY"
@@ -71,10 +80,15 @@ export const InnerProfilePage: React.FC = () => {
             </div>
           </ProfileSubSection>
           <ProfileSubSection title="Password">
-            <Button label="Change Password" type="GRAY" onClick={() => {}} />
+            <Button label="Change Password" type="GRAY" onClick={() => {props.history!.push("/resetpassword")}} />
           </ProfileSubSection>
           <ProfileSubSection title="Account">
-            <Button label="DELETE" type="DANGER" solid onClick={() => {}} />
+            <Button
+              label="DELETE"
+              type="DANGER"
+              solid
+              onClick={_handleDelete}
+            />
           </ProfileSubSection>
         </div>
       </div>
@@ -82,4 +96,5 @@ export const InnerProfilePage: React.FC = () => {
   );
 };
 
-export const ProfilePage = withLayout(InnerProfilePage);
+const ProfilePageWithAccountApi = withAccountApi(InnerProfilePage);
+export const ProfilePage = withLayout(ProfilePageWithAccountApi);
