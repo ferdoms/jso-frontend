@@ -3,6 +3,8 @@ import { UserLoginInterface } from "../interfaces/UserLoginInterface";
 import { InjectedLoginFormProps } from "../components/login-form/InjectedLoginFormProps";
 import { InjectedHeaderProps } from "../components/header/InjectedHeaderProps";
 import { InjectedWithAuthProps } from "../components/with-auth-guard/InjectedWithAuthProps";
+import { apiFetch } from "../helpers/api";
+import * as tokenManager from "../helpers/tokenHelper";
 
 interface IProps {
   onLogin?: (user: UserLoginInterface) => void;
@@ -10,32 +12,57 @@ interface IProps {
   isLoggedIn?: () => boolean;
 }
 
-type InjectedProps = InjectedLoginFormProps & InjectedHeaderProps & InjectedWithAuthProps & IProps;
+interface IState {
+  loggedUsername: string,
+}
+
+type InjectedProps = InjectedLoginFormProps &
+  InjectedHeaderProps &
+  InjectedWithAuthProps &
+  IProps;
+
+
 
 export const withAuthApi = <P extends InjectedProps>(
   WrappedComponent: ComponentType<P>
 ) =>
-  class ApiContainer extends Component<P, {}> {
+  class ApiContainer extends Component<P, IState> {
+    endpoint: string | undefined;
     constructor(props: P) {
       super(props);
+      this.state = {loggedUsername:""}
       this._login = this._login.bind(this);
       this._logout = this._logout.bind(this);
       this._isLoggedIn = this._isLoggedIn.bind(this);
+
+      if (process.env.REACT_APP_ACCOUNT_API)
+        this.endpoint = process.env.REACT_APP_ACCOUNT_API;
+      else
+        new Error(
+          "Property 'REACT_APP_ACCOUNT_API' does not exist on type 'ProcessEnv'"
+        );
     }
 
-    _login(user: UserLoginInterface) {
-      console.log("_login");
-      // this.setState({ isLoggedIn: true });
-      window.localStorage.setItem("loggedIn", "true");
+    async _login(user: UserLoginInterface) {
+      const resource = `http://${this.endpoint!}/api/login`;
+      await apiFetch(resource, {
+        method: "POST",
+        body: user,
+        responseType: "text"
+      })
+      .then(tokenManager._storeToken)
+      .then(()=>this.setState({loggedUsername: user.username}))
 
-      // needs to throw erro on any response status but 200
-      //throw new Error("could not fetch")
+      
+      
     }
     _logout() {
-      window.localStorage.clear();
+      tokenManager._removeToken()
+      this.setState({loggedUsername:""})
     }
     _isLoggedIn() {
-      return !!window.localStorage.getItem("loggedIn");
+      // TODO implement call to valid session
+     return tokenManager._hasToken()
     }
 
     render() {
@@ -45,6 +72,7 @@ export const withAuthApi = <P extends InjectedProps>(
           onLogin={this._login}
           onLogout={this._logout}
           isLoggedIn={this._isLoggedIn}
+          loggedUsername={this.state.loggedUsername}
         />
       );
     }

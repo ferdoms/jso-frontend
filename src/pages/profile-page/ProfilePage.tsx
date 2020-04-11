@@ -61,7 +61,7 @@ export const InnerProfilePage: React.FC<Props> = props => {
                 <ProfileForm
                   userData={userDetails}
                   onSubmit={user => {
-                    props.onUpdateUser!(user);
+                    props.onUpdateUser!({id:userDetails.id, ...user});
                     setIsEditing(false);
                   }}
                 />

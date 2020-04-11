@@ -37,7 +37,7 @@ class InnerLoginForm extends React.Component<Props, State> {
     data.err = "";
     this.setState(data);
   }
-  private _handleLogin() {
+  private async _handleLogin() {
     const { onLogin } = this.props;
     const { err, ...user } = this.state;
 
@@ -48,7 +48,8 @@ class InnerLoginForm extends React.Component<Props, State> {
 
     try {
       if (onLogin && !validationResult.error) {
-        onLogin(user as UserLoginInterface);
+        await onLogin({ username: user.email, password: user.password });
+        console.log("foi")
         this.props.history!.push("/dashboard");
       }
     } catch (error) {
