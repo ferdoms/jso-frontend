@@ -4,13 +4,13 @@ import ListJobAppl from "../list-job-appl/ListJobAppl";
 import { Input } from "../input/Input";
 import Button from "../button/Button";
 import { Combobox } from "../combobox/combobox";
-import { JobApplication } from "../../interfaces/JobApplicationInterface";
+import { JobApplicationInterface } from "../../interfaces/JobApplicationInterface";
 import { FadeIn } from "../animations/fade-in";
 
 interface Props {
   jobApplList: any[];
   onAddJobClick: () => void;
-  onEditJobClick: (jobAppl:JobApplication) => void;
+  onEditJobClick: (jobAppl:JobApplicationInterface) => void;
 }
 
 interface State {
@@ -53,7 +53,7 @@ class JobApplBoard extends React.Component<Props, State> {
   private _handleSelectJobCard(id: number) {
     const { jobApplList, onEditJobClick} = this.props;
     // filter selected job application
-    let selected:JobApplication = jobApplList.filter(item => item.id === id)[0]
+    let selected:JobApplicationInterface = jobApplList.filter(item => item.id === id)[0]
     // sends it back to parent object
     onEditJobClick(selected);
   }

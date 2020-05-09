@@ -2,23 +2,31 @@ import React from "react";
 import Section from "../../components/section/Section";
 import { FadeIn } from "../../components/animations/fade-in";
 import JobApplBoard from "../../components/job-appl-board/JobApplBoard";
-import { jobApplList } from "./mockDatav2";
 import { SlideLeft } from "../../components/animations/slide-left";
 import { EditJobForm } from "../../components/edit-job-form/EditJobForm";
-import { JobApplication } from "../../interfaces/JobApplicationInterface";
+import { JobApplicationInterface } from "../../interfaces/JobApplicationInterface";
 import ErrorMsg from "../../components/errorMsg/ErrorMsg";
 import { AddJobForm } from "../../components/add-job-form/AddJobForm";
 import { withLayout } from "../withLayout";
+import { InjectedDashboardProps } from "./InjectedDashboardProps";
+import { withJobApplicationsApi } from "../../services/JobApplicationsApi";
+import * as H from "history";
+import * as tokenManager from "../../helpers/tokenHelper";
 
 interface State {
   isAdding: boolean;
   isEditing: boolean;
-  jobAppls: JobApplication[];
-  jobApplToEdit: JobApplication | null;
+  jobAppls: JobApplicationInterface[];
+  jobApplToEdit: JobApplicationInterface | null;
 }
 
+interface IProps {
+  history: H.History;
 
-class InnerDashboardPage extends React.Component<{}, State> {
+}
+type Props = InjectedDashboardProps & IProps;
+
+class InnerDashboardPage extends React.Component<Props, State> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -34,42 +42,62 @@ class InnerDashboardPage extends React.Component<{}, State> {
     this._onEdit = this._onEdit.bind(this);
     this._onCloseEdit = this._onCloseEdit.bind(this);
   }
-  componentDidMount() {
-    this.setState({ jobAppls: jobApplList });
+  async componentDidMount() {
+      try{
+        const jobApplications = await this.props.getJobApplications!();
+    this.setState({ jobAppls: jobApplications });
+      }catch (e){
+        console.log(e)
+        this.props.history!.push("/login")
+        tokenManager._removeToken()
+      }
+    
+    
+  }
+  async componentDidUpdate(prevProps: any, prevState: any) {
+    if (
+      (prevState.isAdding === true && this.state.isAdding === false) ||
+      (prevState.isEditing === true && this.state.isEditing === false)
+    ) {
+      const jobApplications = await this.props.getJobApplications!();
+      this.setState({ jobAppls: jobApplications });
+    }
   }
 
-  private _submitEditJA = (job: JobApplication) => {
+  private _submitEditJA = (ja: JobApplicationInterface) => {
     let jaList = this.state.jobAppls;
 
-    // find object in the array and update it
-    jaList = jaList.map(item => {
-      if (item.id === job.id) {
-        item = job;
-      }
-      return item;
-    });
-    // update state
-    this.setState({ jobAppls: jaList });
-    // request API to save object
+    try {
+      // request api to create JA
+      this.props.updateJobApplication!(ja);
 
-    // close form
-    this._onCloseEdit();
+      // find object in the array and update it
+      jaList = jaList.map(item => {
+        if (item.id === ja.id) {
+          item = ja;
+        }
+        return item;
+      });
+
+      // update state
+      this.setState({ jobAppls: jaList });
+      // request API to save object
+
+      // close form
+      this._onCloseEdit();
+    } catch (e) {
+      console.log(e);
+    }
   };
-  private _submitAddJA = (ja: JobApplication) => {
-    let jaList = this.state.jobAppls;
+  private _submitAddJA = (ja: JobApplicationInterface) => {
+    try {
+      // request api to create JA
+     this.props.createJobApplication!(ja);
 
-    // request api to create JA
-
-    // update ja id
-
-    // add to the JobAppl array to update view
-    jaList.push(ja);
-
-    // update state
-    this.setState({ jobAppls: jaList });
-
-    // close form
-    this._onCloseAdd();
+      this._onCloseAdd();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   private _onAdd = () => {
@@ -78,9 +106,7 @@ class InnerDashboardPage extends React.Component<{}, State> {
   private _onCloseAdd = () => {
     this.setState({ isAdding: false });
   };
-  private _onEdit(jobAppl: JobApplication) {
-    // possibility of a fetch
-
+  private _onEdit(jobAppl: JobApplicationInterface) {
     this.setState({ jobApplToEdit: jobAppl });
     this.setState({ isEditing: true });
   }
@@ -136,4 +162,9 @@ class InnerDashboardPage extends React.Component<{}, State> {
   }
 }
 
-export const DashboardPage = withLayout(InnerDashboardPage);
+export const InnerDashboardPageWithJobApplicationApi = withJobApplicationsApi(
+  InnerDashboardPage
+);
+export const DashboardPage = withLayout(
+  InnerDashboardPageWithJobApplicationApi
+);

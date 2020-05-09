@@ -3,7 +3,7 @@ import Btn from "../button/Button";
 import { Input } from "../input/Input";
 import jobApplicationValidate from "../../validations/jobApplicationValidate";
 import ErrorMsg from "../errorMsg/ErrorMsg";
-import { JobApplication } from "../../interfaces/JobApplicationInterface";
+import { JobApplicationInterface } from "../../interfaces/JobApplicationInterface";
 import { JobApplicationLog } from "../../interfaces/JobApplicationLog";
 import { DocumentInterface } from "../../interfaces/DocumentInterface";
 import ListLogs from "../list-logs/ListLogs";
@@ -15,7 +15,7 @@ import { ValidationError } from "@hapi/joi";
 import Button from "../button/Button";
 
 interface Props {
-  onSubmit?: (jobAppl: JobApplication) => void;
+  onSubmit?: (jobAppl: JobApplicationInterface) => void;
 }
 
 interface State {
@@ -26,7 +26,7 @@ interface State {
   status: "Active" | "Follow up" | "Interview" | "Archieved";
   statusDate: string;
   jobUrl: string;
-  documentsList: DocumentInterface[];
+  documentList: DocumentInterface[];
   jobApplicationLog: JobApplicationLog[];
   err: ValidationError | undefined;
 }
@@ -42,7 +42,7 @@ export class AddJobForm extends React.Component<Props, State> {
       status: "Active",
       statusDate: "",
       jobUrl: "",
-      documentsList: [],
+      documentList: [],
       jobApplicationLog: [],
       err: undefined
     };
@@ -65,10 +65,23 @@ export class AddJobForm extends React.Component<Props, State> {
     if (!!result.error) {
       this.setState({ err: result.error });
     } else {
-      if (onSubmit) onSubmit(job as JobApplication);
+      job.statusDate = new Date().getTime().toString()
+      if (onSubmit) onSubmit(job as JobApplicationInterface);
     }
   }
-  private _handleFileChange(e: any) {}
+  private _handleFileChange(e: any) {
+
+  
+    // TODO method to upload files
+
+    // TODO save to array only if documents were uploaded
+    const documentList: any[] = [];
+    Array.from(e.target.files).forEach((item: any) => {
+      documentList.push({ name: item.name });
+    });
+    this.setState({ documentList });
+
+  }
 
   render() {
     const {
@@ -78,7 +91,7 @@ export class AddJobForm extends React.Component<Props, State> {
       status,
       statusDate,
       jobUrl,
-      documentsList,
+      documentList,
       jobApplicationLog,
       err
     } = this.state;
@@ -127,9 +140,9 @@ export class AddJobForm extends React.Component<Props, State> {
             <div className="mv2">
               <h5 className="mv3 gray">Docs list:</h5>
               <div className="">
-                {documentsList.length > 0 ? (
+                {documentList.length > 0 ? (
                   <ListDocs
-                    docsList={documentsList}
+                    docsList={documentList}
                     onClick={(item: any) => {}}
                   />
                 ) : (

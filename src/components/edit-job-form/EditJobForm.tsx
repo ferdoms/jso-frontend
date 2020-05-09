@@ -3,7 +3,7 @@ import Btn from "../button/Button";
 import { Input } from "../input/Input";
 import jobApplicationValidate from "../../validations/jobApplicationValidate";
 import ErrorMsg from "../errorMsg/ErrorMsg";
-import { JobApplication } from "../../interfaces/JobApplicationInterface";
+import { JobApplicationInterface } from "../../interfaces/JobApplicationInterface";
 import { JobApplicationLog } from "../../interfaces/JobApplicationLog";
 import { DocumentInterface } from "../../interfaces/DocumentInterface";
 import ListLogs from "../list-logs/ListLogs";
@@ -14,8 +14,8 @@ import { ValidationError } from "@hapi/joi";
 import ValidationErrorMsg from "../validation-error-msg/ValidationErrorMsg";
 
 interface Props {
-  jobApplication: JobApplication;
-  onSubmit?: (jobAppl: JobApplication) => void;
+  jobApplication: JobApplicationInterface;
+  onSubmit?: (jobAppl: JobApplicationInterface) => void;
 }
 
 interface State {
@@ -26,9 +26,10 @@ interface State {
   status: "Active" | "Follow up" | "Interview" | "Archived";
   statusDate: string;
   jobUrl: string;
-  documentsList: DocumentInterface[];
+  documentList: DocumentInterface[];
   jobApplicationLog: JobApplicationLog[];
-  err: ValidationError | undefined;
+  validationError: ValidationError | undefined;
+  pageError: string | undefined;
 }
 
 export class EditJobForm extends React.Component<Props, State> {
@@ -42,7 +43,7 @@ export class EditJobForm extends React.Component<Props, State> {
       status,
       statusDate,
       jobUrl,
-      documentsList,
+      documentList,
       jobApplicationLog
     } = this.props.jobApplication;
     this.state = {
@@ -53,9 +54,10 @@ export class EditJobForm extends React.Component<Props, State> {
       status,
       statusDate,
       jobUrl,
-      documentsList,
+      documentList,
       jobApplicationLog,
-      err: undefined
+      validationError: undefined,
+      pageError: undefined
     };
     this._handleChange = this._handleChange.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
@@ -65,24 +67,61 @@ export class EditJobForm extends React.Component<Props, State> {
   private _handleChange(e: any) {
     let data: any = this.state;
     data[e.target.id] = e.target.value;
-    data.err = "";
+    data.validationError = "";
+    data.validationError = undefined;
     this.setState(data);
   }
 
-  private _handleSubmit() {
+  private async _handleSubmit() {
     const { onSubmit } = this.props;
-    const { err, ...job } = this.state;
+    const { validationError, ...job } = this.state;
 
-    const result = jobApplicationValidate(job);
-    console.log(result);
-    if (result.error) {
-      this.setState({ err: result.error });
-    } else {
-      if (onSubmit) onSubmit(job as JobApplication);
+    const validationResult = jobApplicationValidate(job);
+    if (validationResult.error) this.setState({ validationError: validationResult.error });
+
+      if (onSubmit && !validationResult.error) {
+        try{  
+          await onSubmit(job as JobApplicationInterface);
+        }catch(e){
+          console.log(e)
+          //page error
+          this.setState({pageError: "Could not save this Job Application. Please try again!"})
+        }
+       
     }
   }
 
-  private _handleFileChange(e: any) {}
+  private _handleFileChange(e: any) {
+    // TODO method to upload files
+    const formData = new FormData()
+    // TODO save to array only if documents were uploaded
+    // const documentList: DocumentInterface[] = this.state.documentList;
+    Array.from(e.target.files).forEach((item: any) => {
+      // documentList.push({ name: item.name });
+      formData.append("files", item)
+
+    });
+    const fileName:String = e.target.files[0].name;
+    const fileType = "pdf";
+    const body = {fileName:fileName, fileType};
+    // AWS
+
+    fetch("https://8qewkk2xh7.execute-api.eu-west-1.amazonaws.com/default/ferdoms-dev-uploadFile",{
+      method:"POST",
+      body: formData
+    }).then(async (response) => {
+      const res = await response.json();
+      console.log(res)
+      fetch(res.fileUploadURL,{
+        method:"PUT",
+        headers:{'Content-Type': "applica/form-data"},
+        body:formData
+      })
+  })
+
+
+    // this.setState({ documentList });
+  }
 
   render() {
     const {
@@ -92,9 +131,10 @@ export class EditJobForm extends React.Component<Props, State> {
       status,
       statusDate,
       jobUrl,
-      documentsList,
+      documentList,
       jobApplicationLog,
-      err
+      validationError,
+      pageError
     } = this.state;
     return (
       <div className="pv3">
@@ -130,7 +170,9 @@ export class EditJobForm extends React.Component<Props, State> {
               value={jobUrl}
               onChange={this._handleChange}
             />
-            <ValidationErrorMsg error={err} />
+            <ValidationErrorMsg error={validationError} />
+            {pageError ? <ErrorMsg text={pageError} />:<></> }
+            
             <div className="dib">
               <Btn label="Save" type="SECONDARY" onClick={this._handleSubmit} />
             </div>
@@ -182,9 +224,9 @@ export class EditJobForm extends React.Component<Props, State> {
             <div className="mv2 ">
               <h5 className="mv3 gray">Docs</h5>
               <div className="">
-                {documentsList.length > 0 ? (
+                {documentList ? (
                   <ListDocs
-                    docsList={documentsList}
+                    docsList={documentList}
                     onClick={(item: any) => {}}
                   />
                 ) : (

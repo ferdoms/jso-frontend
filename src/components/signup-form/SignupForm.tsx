@@ -43,7 +43,7 @@ class InnerSignupForm extends React.Component<Props, State> {
     data.err = "";
     this.setState(data);
   }
-  private _handleSubmit() {
+  private async _handleSubmit() {
     const { onSubmit } = this.props;
     const { fname, lname, email, password, confirm_pass } = this.state;
 
@@ -60,8 +60,7 @@ class InnerSignupForm extends React.Component<Props, State> {
       
     try {
       if (onSubmit && !validationResult.error) {
-        console.log("_handleSubmit.if")
-        onSubmit({ fname, lname, email, password } as UserSignupInterface);
+        await onSubmit({ fname, lname, email, password } as UserSignupInterface);
         this.props.history!.push("/dashboard");
       }
     } catch (error) {
