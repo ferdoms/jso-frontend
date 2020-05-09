@@ -1,6 +1,5 @@
 import React, { ReactNode } from "react";
 import "./combobox.css";
-import ErrorMsg from "../errorMsg/ErrorMsg";
 
 interface Props {
   id: string;
@@ -25,21 +24,19 @@ export class Combobox extends React.Component<Props, State> {
   }
 
   updateComboValue(e: any) {
-    
-    let v:string = this._stringHelper(e.target.value)
-    console.log(v)
-    this.setState({value: v})
+    let v: string = this._stringHelper(e.target.value);
+    this.setState({ value: v });
     this.props.onChange(v);
     e.preventDefault();
   }
-  _stringHelper (str:string) {
-    return (str.charAt(0).toLowerCase() + str.substr(1)).replace(/\s/g, "")
-}
+  _stringHelper(str: string) {
+    return (str.charAt(0).toLowerCase() + str.substr(1)).replace(/\s/g, "");
+  }
 
   render() {
     const { id, options } = this.props;
     const { value } = this.state;
-    
+
     return (
       <div className="dib relative mt2 mb3 bb b--black-20">
         <select
@@ -47,7 +44,7 @@ export class Combobox extends React.Component<Props, State> {
           className="b--none pa2  db bg-white"
           onChange={this.updateComboValue}
         >
-          {options.map((item:string, index:number) => {
+          {options.map((item: string, index: number) => {
             return (
               <option key={index} value={this._stringHelper(item)}>
                 {value === this._stringHelper(item) ? "Sort by: " + item : item}

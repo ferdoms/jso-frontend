@@ -24,7 +24,7 @@ class ListDocs extends React.Component<Props, {}> {
             this.props.onClick(item);
           }}
         >
-          {item.name + "." + item.extension}
+          {item.name}
         </a>
       );
     });

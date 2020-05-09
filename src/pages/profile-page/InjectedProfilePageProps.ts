@@ -1,7 +1,7 @@
 import { UserAccountInterface } from "../../interfaces";
 
 export interface InjectedProfilePageProps {
-  onDeleteAccount?: () => void;
+  onDeleteAccount?: (id: string) => void;
   userDetails?: UserAccountInterface;
   onUpdateUser?: (user:UserAccountInterface) => {}
 }

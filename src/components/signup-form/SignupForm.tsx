@@ -60,7 +60,6 @@ class InnerSignupForm extends React.Component<Props, State> {
       
     try {
       if (onSubmit && !validationResult.error) {
-        console.log("_handleSubmit.if")
         await onSubmit({ fname, lname, email, password } as UserSignupInterface);
         this.props.history!.push("/dashboard");
       }

@@ -1,6 +1,6 @@
-import { JobApplication } from "../../interfaces/JobApplicationInterface";
+import { JobApplicationInterface } from "../../interfaces/JobApplicationInterface";
 
-export const jobApplList:JobApplication[] = [
+export const jobApplList:any[] = [
   {
     id: 1,
     companyName: "Dabtype",

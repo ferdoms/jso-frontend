@@ -7,6 +7,7 @@ import { withAuthApi } from "../../services/AuthApi";
 import { InjectedLoginFormProps } from "./InjectedLoginFormProps";
 import { UserLoginInterface } from "../../interfaces/UserLoginInterface";
 import * as H from "history";
+import ErrorMsg from "../errorMsg/ErrorMsg";
 
 interface IProps {
   history?: H.History;
@@ -17,7 +18,8 @@ type Props = IProps & InjectedLoginFormProps;
 interface State {
   email: string;
   password: string;
-  err: ValidationError | undefined;
+  validationError: ValidationError | undefined;
+  pageError: string | undefined;
 }
 
 class InnerLoginForm extends React.Component<Props, State> {
@@ -26,7 +28,8 @@ class InnerLoginForm extends React.Component<Props, State> {
     this.state = {
       email: "",
       password: "",
-      err: undefined
+      validationError: undefined,
+      pageError: undefined
     };
     this._handleChange = this._handleChange.bind(this);
     this._handleLogin = this._handleLogin.bind(this);
@@ -34,34 +37,35 @@ class InnerLoginForm extends React.Component<Props, State> {
   private _handleChange(e: any) {
     let data: any = this.state;
     data[e.target.id] = e.target.value;
-    data.err = "";
+    data.validationError = "";
+    data.pageError = "";
     this.setState(data);
   }
   private async _handleLogin() {
     const { onLogin } = this.props;
-    const { err, ...user } = this.state;
+    const { validationError, ...user } = this.state;
 
     const validationResult = loginFormValidate(user);
 
     if (!!validationResult.error)
-      this.setState({ err: validationResult.error });
+      this.setState({ validationError: validationResult.error });
 
     try {
       if (onLogin && !validationResult.error) {
         await onLogin({ username: user.email, password: user.password });
-        console.log("foi")
         this.props.history!.push("/dashboard");
       }
     } catch (error) {
-      console.log(error);
+      this.setState({pageError: "Email and/or email incorrect, please try again!"})
     }
   }
 
   render() {
-    const { err } = this.state;
+    const { validationError, pageError } = this.state;
     return (
       <div className="w-100 tc pa3 ">
         <h2 className="f2">Login</h2>
+        {pageError? <div className="bg-washed-red pa2 mb3"><ErrorMsg text={pageError}/></div>:<></>}
         <div className="flex flex-column">
           <Input
             id="email"
@@ -69,7 +73,7 @@ class InnerLoginForm extends React.Component<Props, State> {
             type="text"
             value={this.state.email}
             onChange={this._handleChange}
-            error={err}
+            error={validationError}
           />
           <Input
             id="password"
@@ -77,7 +81,7 @@ class InnerLoginForm extends React.Component<Props, State> {
             type="password"
             value={this.state.password}
             onChange={this._handleChange}
-            error={err}
+            error={validationError}
           />
         </div>
         <Btn label="Login" type="SECONDARY" onClick={this._handleLogin} />

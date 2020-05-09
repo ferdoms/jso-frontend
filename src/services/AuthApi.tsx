@@ -13,7 +13,6 @@ interface IProps {
 }
 
 interface IState {
-  loggedUsername: string,
 }
 
 type InjectedProps = InjectedLoginFormProps &
@@ -30,7 +29,6 @@ export const withAuthApi = <P extends InjectedProps>(
     endpoint: string | undefined;
     constructor(props: P) {
       super(props);
-      this.state = {loggedUsername:""}
       this._login = this._login.bind(this);
       this._logout = this._logout.bind(this);
       this._isLoggedIn = this._isLoggedIn.bind(this);
@@ -51,14 +49,10 @@ export const withAuthApi = <P extends InjectedProps>(
         responseType: "text"
       })
       .then(tokenManager._storeToken)
-      .then(()=>this.setState({loggedUsername: user.username}))
-
-      
-      
+      .then(()=>this.setState({loggedUsername: user.username}))  
     }
     _logout() {
       tokenManager._removeToken()
-      this.setState({loggedUsername:""})
     }
     _isLoggedIn() {
       // TODO implement call to valid session
@@ -72,7 +66,6 @@ export const withAuthApi = <P extends InjectedProps>(
           onLogin={this._login}
           onLogout={this._logout}
           isLoggedIn={this._isLoggedIn}
-          loggedUsername={this.state.loggedUsername}
         />
       );
     }

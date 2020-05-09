@@ -12,8 +12,7 @@ export const apiFetch = (url: string, options: any): any => {
 
     // stringfy for server
     options.body = JSON.stringify(options.body);
-  
-  
+    
   return fetch(url, {
     ...options,
     headers

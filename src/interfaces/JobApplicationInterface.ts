@@ -1,7 +1,7 @@
 import { DocumentInterface } from "./DocumentInterface";
 import { JobApplicationLog } from "./JobApplicationLog";
 
-export interface JobApplication {
+export interface JobApplicationInterface {
   id: number;
   companyName: string;
   jobDescription: string;
@@ -9,9 +9,9 @@ export interface JobApplication {
   status: "Active" | "Follow up" | "Interview" | "Archived";
   statusDate: string;
   jobUrl: string;
-  documentsList: DocumentInterface[];
+  documentList: DocumentInterface[];
   jobApplicationLog: JobApplicationLog[];
-  reminderOn: boolean;
-  reminderDate: string;
-  reminderTime: string;
+  reminderOn?: boolean;
+  reminderDate?: string;
+  reminderTime?: string;
 }
