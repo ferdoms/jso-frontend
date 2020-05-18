@@ -8,7 +8,7 @@ export const InnerResetPassPage: React.FC = props => {
   return (
     <Section className="pv6">
       <div className="center bg-white" style={{ maxWidth: "24rem" }}>
-        <ResetPassForm />
+        <ResetPassForm {...props}/>
       </div>
     </Section>
   );

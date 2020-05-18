@@ -93,31 +93,14 @@ export class EditJobForm extends React.Component<Props, State> {
 
   private _handleFileChange(e: any) {
     // TODO method to upload files
-    const formData = new FormData()
     // TODO save to array only if documents were uploaded
-    // const documentList: DocumentInterface[] = this.state.documentList;
+    const documentList: DocumentInterface[] = this.state.documentList;
     Array.from(e.target.files).forEach((item: any) => {
-      // documentList.push({ name: item.name });
-      formData.append("files", item)
-
+      documentList.push({ name: item.name });
     });
-    const fileName:String = e.target.files[0].name;
-    const fileType = "pdf";
-    const body = {fileName:fileName, fileType};
-    // AWS
+    this.setState({ documentList });
 
-    fetch("https://8qewkk2xh7.execute-api.eu-west-1.amazonaws.com/default/ferdoms-dev-uploadFile",{
-      method:"POST",
-      body: formData
-    }).then(async (response) => {
-      const res = await response.json();
-      console.log(res)
-      fetch(res.fileUploadURL,{
-        method:"PUT",
-        headers:{'Content-Type': "applica/form-data"},
-        body:formData
-      })
-  })
+
 
 
     // this.setState({ documentList });

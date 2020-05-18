@@ -9,7 +9,7 @@ interface State {
 }
 
 // tabs titles
-const tabs = ["Active", "Follow up", "Interview", "Archived", "All"];
+const tabs = ["Active", "Interview", "Follow up", "Archived", "All"];
 
 class Tab extends React.Component<Props, State> {
   constructor(props: Props) {

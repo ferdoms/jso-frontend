@@ -61,27 +61,15 @@ class InnerDashboardPage extends React.Component<Props, State> {
     ) {
       const jobApplications = await this.props.getJobApplications!();
       this.setState({ jobAppls: jobApplications });
+      console.log("component up",jobApplications )
     }
   }
 
-  private _submitEditJA = (ja: JobApplicationInterface) => {
-    let jaList = this.state.jobAppls;
+  private  _submitEditJA = async (ja: JobApplicationInterface) => {
 
     try {
-      // request api to create JA
-      this.props.updateJobApplication!(ja);
-
-      // find object in the array and update it
-      jaList = jaList.map(item => {
-        if (item.id === ja.id) {
-          item = ja;
-        }
-        return item;
-      });
-
-      // update state
-      this.setState({ jobAppls: jaList });
-      // request API to save object
+      // request api to update JA
+      await this.props.updateJobApplication!(ja);
 
       // close form
       this._onCloseEdit();
@@ -89,10 +77,10 @@ class InnerDashboardPage extends React.Component<Props, State> {
       console.log(e);
     }
   };
-  private _submitAddJA = (ja: JobApplicationInterface) => {
+  private _submitAddJA = async (ja: JobApplicationInterface) => {
     try {
       // request api to create JA
-     this.props.createJobApplication!(ja);
+     await this.props.createJobApplication!(ja);
 
       this._onCloseAdd();
     } catch (e) {

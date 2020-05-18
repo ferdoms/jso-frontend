@@ -23,7 +23,7 @@ class JobCard extends React.Component<Props, {}> {
     if (jobAppl.status === "Archived") clName += "archived-skin";
 
     return (
-      <div className="fl w-50-m w-third-ns dib pa2" onClick={onClick}>
+      <div className="fl w-100 w-50-m w-third-ns dib pa2" onClick={onClick}>
         <div className={clName} style={{ height: "300px" }}>
           <h4 className="">{jobAppl.companyName}</h4>
           <h5 className="">{jobAppl.jobTitle}</h5>
