@@ -3,9 +3,9 @@ import { JobApplicationInterface } from "../interfaces/JobApplicationInterface";
 import { withAuthApi } from "./AuthApi";
 import { apiFetch } from "../helpers/api";
 import { InjectedDashboardProps } from "../pages/dashboard-page/InjectedDashboardProps";
+import { DocumentInterface } from "../interfaces";
 
-interface IProps {
-}
+interface IProps {}
 
 type InjectedProps = InjectedDashboardProps & IProps;
 
@@ -21,6 +21,8 @@ export const withJobApplicationsApi = <P extends InjectedProps>(
       this._getJobApplications = this._getJobApplications.bind(this);
       this._createJobApplication = this._createJobApplication.bind(this);
       this._updateJobApplication = this._updateJobApplication.bind(this);
+      this._uploadFiles = this._uploadFiles.bind(this);
+      this._downloadFiles = this._downloadFiles.bind(this);
 
       if (process.env.REACT_APP_JOBAPPLICATION_API)
         this.endpoint = process.env.REACT_APP_JOBAPPLICATION_API;
@@ -32,7 +34,7 @@ export const withJobApplicationsApi = <P extends InjectedProps>(
     async _getJobApplications() {
       const resource = `http://${this.endpoint!}/api/jobapplication`;
       return await apiFetch(resource, {
-        method: "GET"
+        method: "GET",
       }).then(async (response: Response) => {
         return await response.json();
       });
@@ -52,15 +54,13 @@ export const withJobApplicationsApi = <P extends InjectedProps>(
       const resource = `http://${this.endpoint!}/api/jobapplication`;
       return await apiFetch(resource, {
         method: "POST",
-        body: newJA
+        body: newJA,
       }).then(async (response: any) => {
-        // TODO add jobApplication.id from response
         return jobApplication;
       });
     }
-    
+
     async _updateJobApplication(jobApplication: JobApplicationInterface) {
-      // this.setState({ isLoggedIn: true });
       // needs to throw erro on any response status but 200
       //throw new Error("could not fetch")
       const {
@@ -74,8 +74,30 @@ export const withJobApplicationsApi = <P extends InjectedProps>(
       const resource = `http://${this.endpoint!}/api/jobapplication/${id}`;
       return await apiFetch(resource, {
         method: "PUT",
-        body: updateJA
-      })
+        body: updateJA,
+      });
+    }
+    async _uploadFiles(file: FormData) {
+      const resource = `http://${this
+        .endpoint!}/api/jobapplication/uploadMultipleFiles`;
+      return await apiFetch(resource, {
+        method: "POST",
+        body: file,
+      }).then(async (response: any) => {
+        console.log(await response.json());
+        return response;
+      });
+    }
+    async _downloadFiles(fileName: DocumentInterface) {
+      const resource =
+        `http://${this.endpoint!}/api/jobapplication/downloadFile/` +
+        fileName.name;
+      return await apiFetch(resource, {
+        method: "GET",
+        encoding: null,
+      }).then(async (response: any) => {
+        return  await response.blob()
+      });
     }
 
     render() {
@@ -85,6 +107,8 @@ export const withJobApplicationsApi = <P extends InjectedProps>(
           createJobApplication={this._createJobApplication}
           getJobApplications={this._getJobApplications}
           updateJobApplication={this._updateJobApplication}
+          uploadFiles={this._uploadFiles}
+          downloadFiles={this._downloadFiles}
         />
       );
     }

@@ -55,7 +55,6 @@ export const withAuthApi = <P extends InjectedProps>(
       tokenManager._removeToken()
     }
     _isLoggedIn() {
-      // TODO implement call to valid session
      return tokenManager._hasToken()
     }
 

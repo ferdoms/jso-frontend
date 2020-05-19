@@ -17,7 +17,7 @@ interface IProps {
 
 type Props = InjectedProfilePageProps & IProps;
 
-export const InnerProfilePage: React.FC<Props> = props => {
+export const InnerProfilePage: React.FC<Props> = (props) => {
   // states
   const [isEditing, setIsEditing] = useState(false);
 
@@ -35,18 +35,30 @@ export const InnerProfilePage: React.FC<Props> = props => {
       console.log(e);
     }
   };
-  const _handleImageProfileChange = (e: any) => {
-    const encodedImage = e.target.files[0].name;
-
-    // TODO encode file
-    const updatedUser: UserAccountInterface = {
-      id: userDetails!.id,
-      fname: userDetails!.fname,
-      lname: userDetails!.lname,
-      email: userDetails!.email,
-      profileImage: encodedImage
-    };
-    _handleUpdate(updatedUser);
+  const _handleImageProfileChange = async (e: any) => {
+    if (e.target.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      const encodedImage =  await new Promise((resolve, reject) =>{
+        reader.onload = function () {
+          // console.log('load: ', reader.result);
+          resolve(reader.result)
+        };
+        reader.onerror = function (error) {
+          console.log('Error: ', error);
+          reject(error)
+        };
+      })
+      
+      const updatedUser: UserAccountInterface = {
+        id: userDetails!.id,
+        fname: userDetails!.fname,
+        lname: userDetails!.lname,
+        email: userDetails!.email,
+        profileImage: typeof encodedImage === "string" ? encodedImage : "",
+      };
+      await _handleUpdate(updatedUser);
+    }
   };
 
   if (!userDetails) throw new Error("No user Data");
@@ -56,15 +68,16 @@ export const InnerProfilePage: React.FC<Props> = props => {
       <h2 className="f2 tc pb3 mv1 bb b--black-10">Profile</h2>
       <div className="pa3">
         <ProfileSubSection title="Image">
-          <div className="pa4">
+          <div className="dib ph1 pv4 tc" style={{ width: "180px" }}>
             <img
-              src="http://tachyons.io/img/logo.jpg"
+              src={props.userDetails?.profileImage? props.userDetails?.profileImage :"http://tachyons.io/img/logo.jpg"}
               className="br-100 h4 w4 dib mb2"
               alt="avatar"
             />
             <div>
               <InputFile
-                label="Upload document"
+                className="dib"
+                label="Change Profile Picture"
                 onChange={_handleImageProfileChange}
                 accept=".png, .jpg, .jpeg"
               />
@@ -78,11 +91,11 @@ export const InnerProfilePage: React.FC<Props> = props => {
               {isEditing ? (
                 <ProfileForm
                   userData={userDetails}
-                  onSubmit={user => {
+                  onSubmit={(user) => {
                     _handleUpdate({
                       id: userDetails.id,
                       ...user,
-                      profileImage: userDetails.profileImage
+                      profileImage: userDetails.profileImage,
                     });
                   }}
                 />

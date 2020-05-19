@@ -48,9 +48,7 @@ class InnerResetPassForm extends React.Component<Props, State> {
     });
 
     if (!!validationResult.error) this.setState({ validationError: validationResult.error });
-
-    if (onPasswordReset) onPasswordReset(password);
-
+    
     try {
       if (onPasswordReset && !validationResult.error) {
         await onPasswordReset(password);

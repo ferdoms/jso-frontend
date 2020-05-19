@@ -1,16 +1,29 @@
 import React from "react";
 import { DocumentInterface } from "../../interfaces/DocumentInterface";
+import { InjectedListDocsProps } from "./InjectedListDocsProps";
+import { withJobApplicationsApi } from "../../services/JobApplicationsApi";
 
-interface Props {
+interface IProps {
   docsList: DocumentInterface[];
-  onClick: (document: DocumentInterface) => void;
 }
+type Props = InjectedListDocsProps & IProps;
 
 /**
  * Renders a list of LogDisplay components given list of logs
  */
-class ListDocs extends React.Component<Props, {}> {
-  private _onClick(document: DocumentInterface) {}
+class InnerListDocs extends React.Component<Props, {}> {
+  constructor(props: Props) {
+    super(props);
+    this._onClick = this._onClick.bind(this);
+  }
+  private async _onClick(document: DocumentInterface) {
+  const d:any =  await this.props.downloadFiles!(document);
+
+    console.log(URL.createObjectURL(d))
+    
+        window.open(URL.createObjectURL(d));
+   
+  }
   render() {
     const { docsList } = this.props;
 
@@ -19,10 +32,8 @@ class ListDocs extends React.Component<Props, {}> {
       return (
         <a
           key={index}
-          className="dt pb2 mb2 f7 bb b--light-gray w-100"
-          onClick={() => {
-            this.props.onClick(item);
-          }}
+          className="dt pb2 mb2 f7 bb b--light-gray w-100 dim"
+          onClick={()=>this._onClick(item)}
         >
           {item.name}
         </a>
@@ -30,4 +41,6 @@ class ListDocs extends React.Component<Props, {}> {
     });
   }
 }
-export default ListDocs;
+export const ListDocs = withJobApplicationsApi(
+  InnerListDocs
+);

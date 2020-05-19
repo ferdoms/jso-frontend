@@ -7,7 +7,7 @@ import ROUTES from './config/routes';
 const App: React.FC = () => {
 
   return (
-    <div className="">
+    <div className="jost-font">
       <RenderRoutes routes={ROUTES}/>       
     </div>
   );

@@ -2,17 +2,14 @@ import React from "react";
 import Btn from "../button/Button";
 import { Input } from "../input/Input";
 import jobApplicationValidate from "../../validations/jobApplicationValidate";
-import ErrorMsg from "../errorMsg/ErrorMsg";
 import { JobApplicationInterface } from "../../interfaces/JobApplicationInterface";
 import { JobApplicationLog } from "../../interfaces/JobApplicationLog";
 import { DocumentInterface } from "../../interfaces/DocumentInterface";
-import ListLogs from "../list-logs/ListLogs";
-import ListDocs from "../list-docs/ListDocs";
+import { ListDocs } from "../list-docs/ListDocs";
 import { TextArea } from "../text-area/TextArea";
 import { InputFile } from "../input-file/InputFile";
 import ValidationErrorMsg from "../validation-error-msg/ValidationErrorMsg";
 import { ValidationError } from "@hapi/joi";
-import Button from "../button/Button";
 
 interface Props {
   onSubmit?: (jobAppl: JobApplicationInterface) => void;
@@ -29,6 +26,7 @@ interface State {
   documentList: DocumentInterface[];
   jobApplicationLog: JobApplicationLog[];
   err: ValidationError | undefined;
+  formData: FormData | undefined;
 }
 
 export class AddJobForm extends React.Component<Props, State> {
@@ -44,7 +42,10 @@ export class AddJobForm extends React.Component<Props, State> {
       jobUrl: "",
       documentList: [],
       jobApplicationLog: [],
-      err: undefined
+      err: undefined,
+      formData: undefined
+      
+
     };
     this._handleChange = this._handleChange.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
@@ -71,16 +72,13 @@ export class AddJobForm extends React.Component<Props, State> {
   }
   private _handleFileChange(e: any) {
 
-  
-    // TODO method to upload files
-
-    // TODO save to array only if documents were uploaded
     const documentList: any[] = [];
+    const formData = new FormData()
     Array.from(e.target.files).forEach((item: any) => {
+      formData.append("files", item)
       documentList.push({ name: item.name });
     });
-    this.setState({ documentList });
-
+    this.setState({ formData, documentList });
   }
 
   render() {
@@ -143,7 +141,6 @@ export class AddJobForm extends React.Component<Props, State> {
                 {documentList.length > 0 ? (
                   <ListDocs
                     docsList={documentList}
-                    onClick={(item: any) => {}}
                   />
                 ) : (
                   "No documents uploaded"

@@ -115,7 +115,7 @@ class InnerSignupForm extends React.Component<Props, State> {
             error={err}
           />
         </div>
-        <Btn label="Sign up" type="SECONDARY" onClick={this._handleSubmit} />
+        <div className="ma2"><Btn label="Sign up" type="SECONDARY" onClick={this._handleSubmit} /></div>
       </div>
     );
   }

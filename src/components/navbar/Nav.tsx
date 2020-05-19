@@ -2,6 +2,7 @@ import React, { createContext, useState } from "react";
 import { Item } from "./Item";
 import { PrivateItem } from "./PrivateItem";
 import { GuestItem } from "./GuestItem";
+import { Link } from "react-router-dom";
 
 interface INavComposition {
   Item: React.FC;
@@ -25,17 +26,13 @@ const Nav: React.FC<INavProps> & INavComposition = props => {
   return (
     <NavContext.Provider value={contextState}>
       <nav className="db dt-l w-100 border-box pv2 ph4 ph5-l bg-white-70 fixed z-5">
-        <a
+        <Link
           className="db dtc-l v-mid mid-gray link dim w-100 w-25-l tc tl-l mb2 mb0-l"
-          href="#"
+          to="/"
           title="Home"
         >
-          <img
-            src="http://tachyons.io/img/logo.jpg"
-            className="dib w2 h2 br-100"
-            alt="Site Name"
-          />
-        </a>
+          JobSeekerOrganizer
+        </Link>
         <div className="db dtc-l v-mid w-100 w-75-l tc tr-l">
           {props.children}
         </div>
