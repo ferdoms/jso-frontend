@@ -61,7 +61,6 @@ class InnerDashboardPage extends React.Component<Props, State> {
     ) {
       const jobApplications = await this.props.getJobApplications!();
       this.setState({ jobAppls: jobApplications });
-      console.log("component up",jobApplications )
     }
   }
 
@@ -70,6 +69,7 @@ class InnerDashboardPage extends React.Component<Props, State> {
     try {
       // request api to update JA
       await this.props.updateJobApplication!(ja);
+      if (ja.formData) await this.props.uploadFiles!(ja.formData)
 
       // close form
       this._onCloseEdit();
@@ -81,6 +81,8 @@ class InnerDashboardPage extends React.Component<Props, State> {
     try {
       // request api to create JA
      await this.props.createJobApplication!(ja);
+
+     if (ja.formData) await this.props.uploadFiles!(ja.formData)
 
       this._onCloseAdd();
     } catch (e) {

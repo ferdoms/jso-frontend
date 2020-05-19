@@ -7,7 +7,7 @@ import { JobApplicationInterface } from "../../interfaces/JobApplicationInterfac
 import { JobApplicationLog } from "../../interfaces/JobApplicationLog";
 import { DocumentInterface } from "../../interfaces/DocumentInterface";
 import ListLogs from "../list-logs/ListLogs";
-import ListDocs from "../list-docs/ListDocs";
+import { ListDocs } from "../list-docs/ListDocs";
 import { TextArea } from "../text-area/TextArea";
 import { InputFile } from "../input-file/InputFile";
 import { ValidationError } from "@hapi/joi";
@@ -30,6 +30,7 @@ interface State {
   jobApplicationLog: JobApplicationLog[];
   validationError: ValidationError | undefined;
   pageError: string | undefined;
+  formData: FormData | undefined;
 }
 
 export class EditJobForm extends React.Component<Props, State> {
@@ -44,7 +45,7 @@ export class EditJobForm extends React.Component<Props, State> {
       statusDate,
       jobUrl,
       documentList,
-      jobApplicationLog
+      jobApplicationLog,
     } = this.props.jobApplication;
     this.state = {
       id,
@@ -57,7 +58,8 @@ export class EditJobForm extends React.Component<Props, State> {
       documentList,
       jobApplicationLog,
       validationError: undefined,
-      pageError: undefined
+      formData: undefined,
+      pageError: undefined,
     };
     this._handleChange = this._handleChange.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
@@ -77,33 +79,33 @@ export class EditJobForm extends React.Component<Props, State> {
     const { validationError, ...job } = this.state;
 
     const validationResult = jobApplicationValidate(job);
-    if (validationResult.error) this.setState({ validationError: validationResult.error });
+    if (validationResult.error)
+      this.setState({ validationError: validationResult.error });
 
-      if (onSubmit && !validationResult.error) {
-        try{  
-          await onSubmit(job as JobApplicationInterface);
-        }catch(e){
-          console.log(e)
-          //page error
-          this.setState({pageError: "Could not save this Job Application. Please try again!"})
-        }
-       
+    if (onSubmit && !validationResult.error) {
+      try {
+        await onSubmit(job as JobApplicationInterface);
+      } catch (e) {
+        console.log(e);
+        //page error
+        this.setState({
+          pageError: "Could not save this Job Application. Please try again!",
+        });
+      }
     }
   }
 
   private _handleFileChange(e: any) {
     // TODO method to upload files
     // TODO save to array only if documents were uploaded
-    const documentList: DocumentInterface[] = this.state.documentList;
+    const documentList: any[] = this.state.documentList;
+
+    const formData = new FormData();
     Array.from(e.target.files).forEach((item: any) => {
+      formData.append("files", item);
       documentList.push({ name: item.name });
     });
-    this.setState({ documentList });
-
-
-
-
-    // this.setState({ documentList });
+    this.setState({ formData, documentList });
   }
 
   render() {
@@ -117,7 +119,7 @@ export class EditJobForm extends React.Component<Props, State> {
       documentList,
       jobApplicationLog,
       validationError,
-      pageError
+      pageError,
     } = this.state;
     return (
       <div className="pv3">
@@ -154,8 +156,8 @@ export class EditJobForm extends React.Component<Props, State> {
               onChange={this._handleChange}
             />
             <ValidationErrorMsg error={validationError} />
-            {pageError ? <ErrorMsg text={pageError} />:<></> }
-            
+            {pageError ? <ErrorMsg text={pageError} /> : <></>}
+
             <div className="dib">
               <Btn label="Save" type="SECONDARY" onClick={this._handleSubmit} />
             </div>
@@ -208,10 +210,7 @@ export class EditJobForm extends React.Component<Props, State> {
               <h5 className="mv3 gray">Docs</h5>
               <div className="">
                 {documentList ? (
-                  <ListDocs
-                    docsList={documentList}
-                    onClick={(item: any) => {}}
-                  />
+                  <ListDocs docsList={documentList} />
                 ) : (
                   "No documents uploaded"
                 )}

@@ -14,4 +14,6 @@ export interface JobApplicationInterface {
   reminderOn?: boolean;
   reminderDate?: string;
   reminderTime?: string;
+  // for file upload
+  formData?:FormData;
 }

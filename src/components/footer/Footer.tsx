@@ -89,6 +89,10 @@ export const Footer: React.FC = () => {
           </div>
         </div>
       </Section>
+      <div className="f6 tc ph3 pb4 ">
+       <a className="link white" href="https://www.freepik.com/free-photos-vectors/business">Business vector created by studiogstock - www.freepik.com</a>
+      </div>
+      
     </footer>
   );
 };

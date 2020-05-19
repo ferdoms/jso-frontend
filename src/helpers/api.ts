@@ -7,11 +7,13 @@ export const apiFetch = (url: string, options: any): any => {
   if (!options["Content-Type"] && !(options["body"] instanceof FormData)) {
     headers.append("accept","application/json" );
     headers.append("Content-Type","application/json" );
+    // stringfy for server
+    options.body = JSON.stringify(options.body);
     };
     if(tokenManage._hasToken()) headers.append("Authorization", tokenManage._getToken()!);
 
     // stringfy for server
-    options.body = JSON.stringify(options.body);
+    // options.body = JSON.stringify(options.body); 
     
   return fetch(url, {
     ...options,
