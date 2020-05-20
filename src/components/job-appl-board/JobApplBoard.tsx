@@ -116,7 +116,7 @@ class JobApplBoard extends React.Component<Props, State> {
             />
           </div>
         </div>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap" style={{ minHeight: "300px" }}>
           <ListJobAppl jobApplList={jobsFiltered} onSelect={this._handleSelectJobCard} />
         </div>
         
